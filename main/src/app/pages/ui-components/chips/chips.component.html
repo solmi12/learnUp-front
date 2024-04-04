@@ -1,0 +1,54 @@
+<mat-card class="cardWithShadow theme-card">
+ 
+  <mat-card-content class="b-t-1">
+    <mat-table [dataSource]="formateurs" matSort>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+        <mat-cell *matCellDef="let formateur">{{ formateur.userDTO.email }}</mat-cell>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+        <mat-cell *matCellDef="let formateur">{{ formateur.userDTO.role }}</mat-cell>
+      </ng-container>
+
+      <!-- Full Name Column -->
+      <ng-container matColumnDef="fullName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+        <mat-cell *matCellDef="let formateur">{{ formateur.fullName }}</mat-cell>
+      </ng-container>
+
+      <!-- Expertise Column -->
+      <ng-container matColumnDef="expertise">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Expertise</mat-header-cell>
+        <mat-cell *matCellDef="let formateur">{{ formateur.expertise }}</mat-cell>
+      </ng-container>
+
+      <!-- Experience Column -->
+      <ng-container matColumnDef="experience">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Experience</mat-header-cell>
+        <mat-cell *matCellDef="let formateur">{{ formateur.experience }}</mat-cell>
+      </ng-container>
+
+  
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let formateur">
+          <button mat-icon-button color="warn" (click)="deleteFormateur(formateur.formateurId)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+</mat-card>
+<div *ngIf="!formateurs || formateurs.length === 0">
+  <p class="text-muted">No data available</p>
+</div>

@@ -1,0 +1,17 @@
+.profile-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #cccccc; /* You can adjust the background color */
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff; /* Text color for initials */
+  }
+  
+  .profile-initials span {
+    margin: 0 5px; /* Adjust spacing between initials */
+  }
+  

@@ -1,0 +1,66 @@
+/* tooltips.component.scss */
+
+.cour-details {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .chapitre-item {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ccc; /* Add a border between chapitres */
+    padding-bottom: 20px; /* Add padding at the bottom of each chapitre item */
+  }
+  
+  .chapitre-info {
+    flex-grow: 1;
+  }
+  
+  .chapitre-image img {
+    max-width: 100px;
+    height: auto;
+  }
+  
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio for responsive videos */
+  }
+  
+  /* Add this in tooltips.component.scss */
+
+.message-input {
+  margin-top: 20px;
+}
+
+.message-input input {
+  width: 70%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.message-input button {
+  padding: 8px 16px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-input button:hover {
+  background-color: #0056b3;
+}
+
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  

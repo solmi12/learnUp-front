@@ -1,0 +1,31 @@
+<div class="add-tool-container">
+  <form (ngSubmit)="onSubmit()" class="tool-form">
+    <div class="form-group">
+      <label for="courName">Cour :</label>
+      <input type="text" id="courName" [(ngModel)]="cour.courName" name="courName" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="cour.description" name="description" class="form-control textarea" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="categoryName">Category :</label>
+      <input type="text" id="categoryName" [(ngModel)]="cour.category.categoryName" name="categoryName" class="form-control" required>
+    </div>
+    
+
+    <div class="form-group">
+      <label for="price">Price:</label>
+      <input type="number" id="price" [(ngModel)]="cour.price" name="price" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" accept="image/*" (change)="onFileChange($event)" id="image" name="image">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Cour</button>
+  </form>
+</div>

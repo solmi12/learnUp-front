@@ -1,0 +1,34 @@
+<div class="search-container">
+  <input type="text" placeholder="Search" #searchInput />
+  <button (click)="searchCoursByCourName(searchInput.value)">Search</button>
+</div>
+
+<div class="categories-container">
+  <div class="category" *ngFor="let category of categories" (click)="filterCoursByCategory(category.categoryName)">
+    {{ category.categoryName }}
+  </div>
+</div>
+
+<div class="haj-details" *ngIf="cour.length > 0; else noCoursFound">
+  <div class="haj-card" *ngFor="let courItem of cour" class="cour-item" (click)="viewCourDetails(courItem.courId!)">
+    <div class="haj-image-container">
+      <img *ngIf="courItem.imageData" [src]="'data:image/png;base64,' + courItem.imageData" alt="Course Image" class="haj-image" />
+    </div>
+    <div class="haj-text">
+      <div class="haj-name">{{ courItem.courName }}</div>
+      <div class="haj-description">
+        {{ courItem.description.length > 50 ? courItem.description.substring(0, 50) + '...' : courItem.description }}
+      </div>
+    </div>
+    <div *ngIf="courItem.discountedPrice !== 0" class="haj-price-promotion-container">
+      <div class="haj-price">{{ courItem.price }}$US</div>
+      <div class="haj-promotion">
+        <div *ngIf="courItem.totalPrice">{{ courItem.totalPrice }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noCoursFound>
+  <div class="no-tools-found">No Courses Found!</div>
+</ng-template>

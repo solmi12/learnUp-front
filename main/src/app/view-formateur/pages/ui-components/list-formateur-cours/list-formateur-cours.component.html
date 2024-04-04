@@ -1,0 +1,40 @@
+<div class="cour-list-container" *ngIf="loading; else courList">
+  <p class="loading-spinner">Loading...</p>
+</div>
+
+<ng-template #courList>
+  <div class="cour-list-container">
+    <h2 class="section-title">Cour List</h2>
+    <ul class="cour-list">
+      <li *ngFor="let cour of cours$ | async" class="cour-item" (click)="viewCourDetails(cour.courId!)">
+        <div class="cour-details">
+          <strong>Cour Name:</strong> {{ cour.courName }}
+        </div>
+        <div class="cour-details">
+          <strong>Description:</strong> {{ cour.description }}
+        </div>
+        <div class="cour-details">
+          <strong>Price:</strong> {{ cour.price }}
+        </div>
+        <div class="cour-details">
+          <strong>Category:</strong> {{ cour.category.categoryName }}
+        </div>
+        <div class="action-buttons">
+          <button class="edit-button" (click)="editCour(cour)">
+            <i class="fas fa-pencil-alt"></i> Edit
+          </button>
+          <button class="delete-button" (click)="deleteCour(cour)">
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #noCours>
+  <div class="cour-list-container">
+    <h2 class="section-title">Cour List</h2>
+    <p class="no-cour">No Cour found for this Formateur.</p>
+  </div>
+</ng-template>

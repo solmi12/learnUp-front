@@ -1,0 +1,178 @@
+/* Add this to your SCSS file */
+/* list-hajj-user.component.scss */
+
+body {
+    background-color: #f1f4f6; /* Set the background color of the entire page to gray */
+  }
+  
+  .image-container {
+    text-align: center;
+    background-color: #ffffff; /* Set a white background for the image container */
+    padding: 0; /* Remove padding to eliminate the gap */
+    margin: 0; /* Remove margin for spacing */
+  }
+  
+  .haj-details-button-container {
+    position: relative;
+  
+    .haj-details-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  }
+  
+  .image {
+    max-width: 100%; /* Ensure the image is responsive */
+    height: auto;
+  }
+  .star-icon {
+  font-family: 'Font Awesome 5 Free';
+  font-size: 24px;
+
+  i {
+    font-weight: 900;
+  }
+
+  &.star-added {
+    color: red; /* Color for the trash bin icon */
+  }
+
+  &.star-not-added {
+    color: green; /* Color for the checkmark icon */
+  }
+}
+  
+/* Updated SCSS styles for using courItem */
+/* Updated SCSS styles for using courItem */
+.haj-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+
+  .cour-item {
+    flex: 0 1 calc(22% - 19px);
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+
+    .haj-image-container {
+      text-align: left;
+
+      .haj-image {
+        max-width: 100%;
+        height: 300px;
+        flex-grow: 1;
+      }
+    }
+
+    .haj-text {
+      margin-top: 10px;
+      text-align: left;
+
+      .haj-name, .haj-price {
+        font-weight: 400;
+        font-family: "Quicksand", sans-serif;
+        color: #f44336;
+        font-size: 1.2em;
+      }
+
+      .haj-description {
+        margin-top: 5px;
+        font-size: 1em;
+        color: black;
+        flex-grow: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        width: 200px;
+      }
+    }
+  }
+}
+
+  .categories-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow categories to wrap onto the next line */
+    gap: 10px; /* Adjust the gap between categories */
+  }
+  
+  .search-container {
+    font-size: medium;
+    position: relative;
+    top: 0px;
+    left: 35%;
+  }
+  
+  .promotion-details-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+  
+    .tool-details {
+      flex-grow: 1;
+    }
+  
+    .tool-name {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  
+    .tool-description {
+      margin-top: 5px;
+    }
+  
+    .tool-price {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #f44336;
+    }
+  
+    .additional-details {
+      text-align: right;
+    }
+  
+    .discounted-price, .total-price, .promotion-date {
+      margin-top: 10px;
+    }
+  
+    .label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+  }
+  
+  .category {
+    padding: 10px;
+    margin-top: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-basis: calc(16.666% - 10px); /* Ensure each category takes up 1/6th of the container */
+    max-width: calc(16.666% - 10px); /* Ensure each category takes up 1/6th of the container */
+    box-sizing: border-box; /* Include padding and border in the total width */
+  }
+  
+  .no-tours-found {
+    margin-top: 50px;
+    color: #f44336;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 400;
+    margin-bottom: 50px;
+  }
+  

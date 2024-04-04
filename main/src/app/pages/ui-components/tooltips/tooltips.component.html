@@ -1,0 +1,20 @@
+<table class="cour-table">
+  <thead>
+    <tr>
+      <th>Cour Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Status</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cour of cours" class="cour-row">
+      <td>{{ cour.courName }}</td>
+      <td>{{ cour.description }}</td>
+      <td>{{ cour.price }}</td>
+      <td>{{ cour.status }}</td>
+      <td>{{ cour.category.categoryName }}</td>
+    </tr>
+  </tbody>
+</table>

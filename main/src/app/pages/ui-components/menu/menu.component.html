@@ -1,0 +1,31 @@
+<div *ngIf="pendingCourses.length > 0">
+  <h2>Pending Courses</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped custom-table">
+      <thead>
+        <tr>
+          <th>Cour Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of pendingCourses" class="custom-row">
+          <td>{{ course.courName }}</td>
+          <td>{{ course.description }}</td>
+          <td>{{ course.price }}</td>
+          <td>{{ course.category.categoryName }}</td>
+          <td>
+            <button class="btn btn-accept" (click)="acceptCourse(course.courId!)">Accept</button>
+            <button class="btn btn-refuse" (click)="refuseCourse(course.courId!)">Refuse</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="pendingCourses.length === 0">
+  <p>No pending courses available.</p>
+</div>

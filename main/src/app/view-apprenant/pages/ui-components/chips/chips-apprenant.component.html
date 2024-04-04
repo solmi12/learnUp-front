@@ -1,0 +1,24 @@
+<div *ngIf="questionResponses$ | async as questionResponses; else loadingTemplate">
+    <h2>Reponses</h2>
+    <table class="question-table">
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th> Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let response of questionResponses">
+                <tr>
+                    <td>{{ response.message }}</td>
+                    <td>{{ response.addedDate | date }}</td>
+                </tr>
+             
+            </ng-container>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #loadingTemplate>
+    <p>Loading...</p>
+</ng-template>

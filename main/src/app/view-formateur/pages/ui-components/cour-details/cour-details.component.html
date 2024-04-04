@@ -1,0 +1,101 @@
+<div *ngIf="cour">
+    <h2>{{ cour.courName }}</h2>
+    <p>{{ cour.description }}</p>
+    <!-- Display other Cour details as needed -->
+  
+    <!-- Button to add Chapitre -->
+    <button (click)="showAddChapitreForm()">Add Chapitre</button>
+  
+    <div *ngIf="showAddChapitreFormFlag" class="add-chapitre-form">
+        <h3>Add Chapitre</h3>
+        <form (submit)="addChapitre()">
+          <div class="form-group">
+            <label for="titre">Titre:</label>
+            <input type="text" id="titre" name="titre" [(ngModel)]="chapitre.titre" required />
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" [(ngModel)]="chapitre.description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="dureeEstimee">Durée estimée:</label>
+            <input type="number" id="dureeEstimee" name="dureeEstimee" [(ngModel)]="chapitre.dureeEstimee" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="ordreDansLeCours">Ordre dans le cours:</label>
+            <input type="number" id="ordreDansLeCours" name="ordreDansLeCours" [(ngModel)]="chapitre.ordreDansLeCours" required />
+          </div>
+          <div class="form-group">
+            <label for="pdfAttachment">PDF Attachment:</label>
+            <input type="file" id="pdfAttachment" name="pdfAttachment" (change)="onFileChangePdf($event)" accept=".pdf" required />
+          </div>
+          <div class="form-group">
+            <label for="imageData">Image Data:</label>
+            <input type="file" id="imageData" name="imageData" (change)="onFileChange($event)" accept="image/*" required />
+          </div>
+          <div class="form-group">
+            <label for="youtubeVideoLink">Youtube Video Link:</label>
+            <input type="text" id="youtubeVideoLink" name="youtubeVideoLink" [(ngModel)]="chapitre.youtubeVideoLink" />
+          </div>
+          <!-- Add more form fields as needed -->
+          <div class="form-actions">
+            <button type="submit">Add Chapitre</button>
+          </div>
+        </form>
+      </div>
+      
+  
+    <div *ngIf="chapitre">
+      <h3>Chapitre Details:</h3>
+      <p>{{ chapitre.titre }} - {{ chapitre.description }}</p>
+      <!-- Display other Chapitre details as needed -->
+    </div>
+  
+    <div *ngIf="chapitres && chapitres.length > 0">
+      <h3>Chapitres:</h3>
+      <table class="chapitre-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chapitre of chapitres">
+            <td>{{ chapitre.titre }}</td>
+            <td>{{ chapitre.description }}</td>
+            <td>
+              <div class="pdf-container">
+                <object *ngIf="chapitre.pdfAttachment" type="application/pdf" [data]="sanitizePdf(chapitre.pdfAttachment)" class="pdf-object">
+                  Your browser does not support PDFs.
+                </object>
+                <!-- Add a button for downloading the PDF -->
+                <a *ngIf="chapitre.pdfAttachment" [href]="sanitizePdf(chapitre.pdfAttachment)" download="file.pdf">
+                  <button class="download-btn">Download PDF</button>
+                </a>
+                <!-- Add error handling -->
+                <div *ngIf="!chapitre.pdfAttachment">
+                  <p>No PDF attachment found for this Chapitre.</p>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="!chapitres || chapitres.length === 0">
+      <p>No Chapitres found.</p>
+    </div>
+  </div>
+  
+  <div *ngIf="!cour && !loading">
+    <p>No Cour found.</p>
+  </div>
+  
+  <div *ngIf="loading">
+    <p>Loading...</p>
+  </div>
+  

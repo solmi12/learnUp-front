@@ -1,0 +1,40 @@
+<div class="profile-card" *ngIf="admin">
+  <div class="profile-header">
+    <h2>{{ admin.userDTO.email }}</h2>
+  </div>
+  <div class="profile-content">
+    <div class="profile-info" *ngIf="!showEditForm">
+      <p><strong>First Name:</strong> {{ admin.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ admin.lastName }}</p>
+      <p><strong>Email:</strong> {{ admin.userDTO.email }}</p>
+    </div>
+    <div class="modify-profile-button-container">
+      <button class="modify-profile-button" (click)="toggleEditForm()">Modify Profile</button>
+    </div>
+    <div class="edit-profile-form" *ngIf="showEditForm">
+      <!-- Form for editing admin details -->
+      <form (submit)="updateAdminDetails()">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="admin.firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="admin.lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="admin.userDTO.email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="admin.userDTO.password" required>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="save-button">Save Changes</button>
+          <button type="button" class="cancel-button" (click)="toggleEditForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

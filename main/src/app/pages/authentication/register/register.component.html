@@ -1,0 +1,105 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light-primary">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content class="p-32">
+          <div class="text-center">
+            <!-- Add any header content here -->
+          </div>
+
+          <!-- Register Apprenant Button -->
+          <button mat-raised-button color="primary" class="w-100 m-b-12" (click)="showApprenantForm()">Register Apprenant</button>
+
+          <!-- Register Formateur Button -->
+          <button mat-raised-button color="primary" class="w-100" (click)="showFormateurForm()">Register Formateur</button>
+
+          <div class="or-border m-t-30">sign up</div>
+
+          <!-- Apprenant Registration Form -->
+          <form *ngIf="showApprenant" class="m-t-30" (ngSubmit)="onSubmit()" [formGroup]="registrationForm">
+            <!-- Full Name -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Full Name</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="fullName" />
+            </mat-form-field>
+          
+            <!-- Email Address -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Address</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="email" type="email" />
+            </mat-form-field>
+          
+            <!-- Password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="password" type="password" />
+            </mat-form-field>
+          
+            <!-- Interests (if needed) -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Interests</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="interests" />
+            </mat-form-field>
+          
+            <!-- Education Level (if needed) -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Education Level</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="educationLevel" />
+            </mat-form-field>
+          
+            <!-- Sign Up Button -->
+            <button mat-flat-button color="primary" class="w-100" type="submit">Sign Up</button>
+          </form>
+
+          <!-- Formateur Registration Form -->
+          <form *ngIf="showFormateur" class="m-t-30" (ngSubmit)="onSubmitFormateur()" [formGroup]="formateurForm">
+            <!-- Full Name -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Full Name</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="fullName" />
+            </mat-form-field>
+          
+            <!-- Email Address -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Address</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="email" type="email" />
+            </mat-form-field>
+          
+            <!-- Password -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="password" type="password" />
+            </mat-form-field>
+          
+            <!-- Expertise (if needed) -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Expertise</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="expertise" />
+            </mat-form-field>
+
+            <!-- Experience (if needed) -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Experience</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="experience" />
+            </mat-form-field>
+
+            <!-- Phone Number (if needed) -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Phone Number</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="phoneNumber" />
+            </mat-form-field>
+          
+            <!-- Sign Up Button -->
+            <button mat-flat-button color="primary" class="w-100" type="submit">Sign Up</button>
+          </form>
+
+          <!-- Link to Sign In -->
+          <span class="d-block f-w-500 text-center m-t-24">
+            Already have an Account?
+            <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">Sign In</a>
+          </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

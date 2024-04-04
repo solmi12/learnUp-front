@@ -1,0 +1,51 @@
+<div class="profile-card" *ngIf="formateur">
+  <div class="profile-header">
+    <h2>{{ formateur.userDTO.email }}</h2>
+  </div>
+  <div class="profile-content">
+    <div class="profile-info" *ngIf="!showEditForm">
+      <p><strong>Full Name:</strong> {{ formateur.fullName }}</p>
+      <p><strong>Experience:</strong> {{ formateur.experience }}</p>
+      
+      <p><strong>Expertise:</strong> {{ formateur.expertise }}</p>
+      <p><strong>Numero:</strong> {{ formateur.phoneNumber }}</p>
+    </div>
+    <div class="modify-profile-button-container">
+      <button class="modify-profile-button" (click)="toggleEditForm()">Modify Profile</button>
+    </div>
+    <div class="edit-profile-form" *ngIf="showEditForm">
+      <!-- Form for editing admin details -->
+      <form (submit)="updateApprenantDetails()">
+        <div class="form-group">
+          <label for="fullName">Full Name:</label>
+          <input type="text" id="fullName" name="fullName" [(ngModel)]="formateur.fullName" required>
+        </div>
+        <div class="form-group">
+          <label for="expertise">expertise:</label>
+          <input type="text" id="expertise" name="expertise" [(ngModel)]="formateur.expertise" required>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">experience:</label>
+          <input type="experience" id="experience" name="experience" [(ngModel)]="formateur.experience" required>
+        </div>
+        <div class="form-group">
+          <label for="phoneNumber">Numero:</label>
+          <input type="number" id="phoneNumber" name="phoneNumber" [(ngModel)]="formateur.phoneNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" [(ngModel)]="formateur.userDTO.email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" [(ngModel)]="formateur.userDTO.password" required>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="save-button">Save Changes</button>
+          <button type="button" class="cancel-button" (click)="toggleEditForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

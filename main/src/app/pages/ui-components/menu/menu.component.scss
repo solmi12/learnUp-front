@@ -1,0 +1,50 @@
+// Custom table styles
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+  
+    th {
+      background-color: #f0f0f0; // Light gray background for table headers
+    }
+  
+    .custom-row {
+      td {
+        border: 1px solid #ddd; // Gray borders for table cells
+      }
+  
+      &:nth-child(even) {
+        background-color: #f9f9f9; // Alternate row background color for better readability
+      }
+    }
+  }
+  
+  // Button styles
+  .btn-accept {
+    background-color: #4CAF50; // Green color for "Accept" button
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #45a049; // Darker green color on hover
+    }
+  }
+  
+  .btn-refuse {
+    background-color: #f44336; // Red color for "Refuse" button
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+  
+    &:hover {
+      background-color: #d32f2f; // Darker red color on hover
+    }
+  }
+  

@@ -1,0 +1,53 @@
+<mat-toolbar class="topbar">
+  <!-- Mobile Menu -->
+  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+  <!-- --------------------------------------------------------------- -->
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- Notification Dropdown -->
+  <button mat-icon-button aria-label="Notifications" (click)="toggleMobileFilterNav.emit()">
+    <i-tabler
+      class="d-flex"
+      name="bell"
+      [matBadge]="notifications ? notifications.length : 0"
+      [matBadgeColor]="notifications && notifications.length > 0 ? 'primary' : 'accent'"
+    ></i-tabler>
+  </button>
+  <button mat-icon-button aria-label="Messages" (click)="fetchMessageNotifications()">
+    <i-tabler
+      class="d-flex"
+      name="message-circle"
+      [matBadge]="notificationsMessage ? notificationsMessage.length : 0"
+      [matBadgeColor]="notificationsMessage && notificationsMessage.length > 0 ? 'primary' : 'accent'"
+    ></i-tabler>
+  </button>
+  
+  
+  
+  
+
+  <span class="flex-1-auto"></span>
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+  <a
+  mat-flat-button
+  color="primary"
+  target="_blank"
+  class="d-flex justify-content-center"
+  (click)="logout()"
+>
+ log out
+</a>
+
+<button mat-icon-button *ngIf="formateur" [routerLink]="['/ui-components/profile-formateur']">
+  <div class="profile-initials">
+    <span>{{ getInitials(formateur.fullName) }}</span>
+  </div>
+</button>
+
+
+</mat-toolbar>

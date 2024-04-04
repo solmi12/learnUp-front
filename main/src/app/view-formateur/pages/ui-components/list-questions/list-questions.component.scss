@@ -1,0 +1,22 @@
+.question-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.question-table th, .question-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.question-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+}
+
+.large-input {
+    width: 100%; /* Adjust the width as needed */
+    padding: 12px; /* Increase padding for a larger input */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
