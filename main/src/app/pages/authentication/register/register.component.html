@@ -46,6 +46,18 @@
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput formControlName="educationLevel" />
             </mat-form-field>
+
+            
+            <!-- Classe Field -->
+<mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Classe</mat-label>
+<mat-form-field appearance="outline" class="w-100" color="primary">
+  <mat-select formControlName="classe">
+    <mat-option value="premiere">Premiere</mat-option>
+    <mat-option value="deuxieme">Deuxieme</mat-option>
+    <mat-option value="troisieme">Troisieme</mat-option>
+  </mat-select>
+</mat-form-field>
+
           
             <!-- Sign Up Button -->
             <button mat-flat-button color="primary" class="w-100" type="submit">Sign Up</button>

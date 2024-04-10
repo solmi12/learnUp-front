@@ -6,6 +6,7 @@ export interface Apprenant {
   userDTO: userDTO;
   fullName: string;
   interests: string;
+  classe:string;
   educationLevel: string;
   apprenantCourList?: ApprenantCour[];
 }

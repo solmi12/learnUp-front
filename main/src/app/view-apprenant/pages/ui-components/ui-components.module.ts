@@ -18,6 +18,8 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from 'src/app/material.module';
 import { AppChipsApprenantComponent } from './chips/chips.component';
+import { MesApprentissagesComponent } from './mes-apprentissages/mes-apprentissages.component';
+import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { AppChipsApprenantComponent } from './chips/chips.component';
     AppListsComponent,
     AppMenuComponent,
     AppTooltipsComponent,
+    MesApprentissagesComponent,
+    ListSouhaitComponent,
   ],
 })
 export class UicomponentsModule {}

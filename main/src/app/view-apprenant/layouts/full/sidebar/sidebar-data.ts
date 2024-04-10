@@ -19,6 +19,17 @@ export const navItems: NavItem[] = [
   
     route: '/ui-components/listes-reponses',
   },
+  {
+    displayName: 'Mon apprentissage',
+  
+    route: '/ui-components/mes-courses',
+  },
+
+  {
+    displayName: 'Lists Souhaits',
+  
+    route: '/ui-components/Listes-Souhaits',
+  },
  
 
  

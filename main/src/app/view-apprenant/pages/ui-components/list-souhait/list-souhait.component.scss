@@ -1,0 +1,42 @@
+.table-container {
+    margin-top: 20px;
+  
+    .cour-table {
+      width: 100%;
+      border-collapse: collapse;
+  
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+  
+      th {
+        background-color: #f2f2f2;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+  
+      tr:hover {
+        background-color: #ddd;
+      }
+  
+      .haj-image-container {
+        width: 50px; /* Adjust width as needed */
+        height: 50px; /* Adjust height as needed */
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        .haj-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  

@@ -23,6 +23,10 @@ export class StudentService {
   getStudentById(apprenantId: number): Observable<Apprenant> {
     return this.http.get<Apprenant>(`${this.baseUrl}/${apprenantId}`);
   }
+  getApprenantsByClasse(classe: string): Observable<Apprenant[]> {
+    const url = `${this.baseUrl}/byClasse/${classe}`;
+    return this.http.get<Apprenant[]>(url);
+  }
 
   updateStudent(apprenantId: number, apprenantDTO: Apprenant): Observable<Apprenant> {
     return this.http.put<Apprenant>(`${this.baseUrl}/${apprenantId}`, apprenantDTO);

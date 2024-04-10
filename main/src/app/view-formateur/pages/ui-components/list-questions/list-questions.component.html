@@ -10,15 +10,17 @@
         <tbody>
             <ng-container *ngFor="let response of questionResponses">
                 <tr>
-                    <td>{{ response.message }}</td>
+                    <td>{{ response.question }}</td>
                     <td>{{ response.addedDate | date }}</td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <div class="input-container">
-                            <input type="text" placeholder="Enter your message" class="large-input">
-                            <button (click)="updateResponse(response)">Send</button>
-                        </div>
+                            <input type="text" placeholder="Enter your new response" class="large-input" [(ngModel)]="newResponse">
+                            <button (click)="updateResponse(response, newResponse)">Send</button>
+
+                          </div>
+                          
                     </td>
                     
                 </tr>

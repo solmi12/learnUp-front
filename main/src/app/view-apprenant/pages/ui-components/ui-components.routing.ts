@@ -6,6 +6,8 @@ import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppChipsApprenantComponent } from './chips/chips.component';
+import { MesApprentissagesComponent } from './mes-apprentissages/mes-apprentissages.component';
+import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -25,8 +27,16 @@ export const UiComponentsRoutes: Routes = [
         component: AppChipsApprenantComponent,
       },
       {
+        path: 'Listes-Souhaits',
+        component: ListSouhaitComponent,
+      },
+      {
         path: 'menu',
         component: AppMenuComponent,
+      },
+      {
+        path: 'mes-courses',
+        component: MesApprentissagesComponent,
       },
       {
         path: 'cour/:id',

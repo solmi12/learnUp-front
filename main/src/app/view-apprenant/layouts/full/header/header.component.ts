@@ -54,20 +54,29 @@ export class HeaderApprenantComponent implements OnInit {
   @Inject(QuestionResponseService) private questionReponseService:QuestionResponseService) {}
  
   ngOnInit(): void {
-    this.getAllCours();
-    this.getCategories();
     const storedId = localStorage.getItem('userId');
     console.log('Stored ID:', storedId);
     const userId = parseInt(storedId || '', 10); // Parse to integer with base 10
     if (!isNaN(userId)) {
-      this.getUserDetails(userId).subscribe(() => {
-        this.fetchMessageNotifications(); // Call fetchMessageNotifications after getting user details
-      });
+      this.getUserDetails(userId);
     } else {
       console.error('Invalid user ID stored in localStorage');
     }
+   
+    this.fetchMessageNotifications();
   }
-  
+
+  getInitials(fullName: string | undefined): string {
+    if (!fullName) {
+      return ''; // Handle case where fullName is undefined
+    }
+    const initials = fullName.trim().split(' ')
+      .map(word => word.charAt(0))
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
+    return initials;
+  }
 
   fetchMessageNotifications(): void {
     if (this.apprenantId !== 0) {
@@ -87,87 +96,38 @@ export class HeaderApprenantComponent implements OnInit {
   }
   
   
-
-  getUserDetails(userId: number): Observable<number> {
-    return this.userService.getUserById(userId).pipe(
+  getUserDetails(userId: number): void {
+    this.userService.getUserById(userId).pipe(
       switchMap((data: any) => {
         // Log the entire response object to the console for debugging
         console.log('Response Object:', data);
-  
-        // Extract the Apprenant ID from the response directly
-        const apprenantId = data.apprenantId; // Extract apprenantId from response
-        console.log('Apprenant ID:', apprenantId); // Log apprenantId
-  
-        // Assign the extracted apprenantId to this.apprenantId
-        this.apprenantId = apprenantId;
-  
-        // Return the apprenantId as an observable
-        return of(apprenantId);
+
+        // Extract the Admin ID from the response directly
+        this.apprenantId = data.apprenantId; // Assign adminId from response
+        console.log('Formateur ID:', this.apprenantId); // Log adminId
+
+        return this.apprenantService.getStudentById(this.apprenantId); 
       }),
       catchError(error => {
-        console.error('Error fetching apprenant:', error);
-        return throwError('Error fetching apprenant');
+        console.error('Error fetching formateur:', error);
+   
+        return throwError('Error fetching formateur');
       })
-    );
-  }
-  
-  getAllCours(): void {
-    // Use the toolService to get all tools
-    this.courService.getAllCours().subscribe(
-      (cour) => {
-        // Set the received tools to the component property
-        this.cour = cour;
-        console.log('All tools:', this.cour);  // Log the assigned tools
-      },
-      (error) => {
-        // Handle errors, such as displaying an error message
-        console.error('Error fetching tools:', error);
+    ).subscribe(
+      (apprenantData: Apprenant) => {
+        this.apprenant = apprenantData;
+        console.log(this.apprenant); // Handle admin data as needed
       }
     );
   }
-
-
-  searchCoursByCourName(searchValue: string): void {
-    this.searchCourName = searchValue; // Assign the input value to the component property
-    this.courService.getToolsByCourName(this.searchCourName).subscribe(
-        (cour) => {
-            this.cour = cour;
-            console.log(`Cours filtered by cour name '${this.searchCourName}':`, this.cour);
-        },
-        (error) => {
-            console.error(`Error fetching cours for cour name '${this.searchCourName}':`, error);
-        }
-    );
-}
+ 
+  
 
   
-// tool.component.ts
-getCategories(): void {
-  this.courService.getAllCours().subscribe(
-    (cour) => {
-      this.categories = Array.from(new Set(cour.map(cour =>cour.category?.categoryName)))
-        .map(categoryName => ({ categoryId: 0, categoryName, cour: [] }));
-    
-      console.log('All categories:', this.categories);
-    },
-    (error) => {
-      console.error('Error fetching categories:', error);
-    }
-  );
-}
 
-// tool.component.ts
-filterCoursByCategory(categoryName: string): void {
-  this.courService.getCoursByCategory(categoryName).subscribe(
-    (cour) => {
-      this.cour = cour;
-      console.log(`Tools filtered by category '${categoryName}':`, this.cour);
-    },
-    (error) => {
-      console.error(`Error fetching tools for category '${categoryName}':`, error);
-    }
-  );
-}
+
+
+
 
   logout(): void {
     this.authService.logout(); // Call the logout method from AuthServiceService

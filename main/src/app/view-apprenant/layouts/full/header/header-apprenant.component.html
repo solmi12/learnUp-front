@@ -42,9 +42,10 @@
  log out
 </a>
 
-<button mat-icon-button *ngIf="apprenant" [routerLink]="['/ui-components/profil-apprenant']">
+<button mat-icon-button *ngIf=" apprenant" [routerLink]="['/ui-components/profil-apprenant']">
   <div class="profile-initials">
-    <span>{{ apprenant.fullName?.charAt(0)!.toUpperCase() }}</span>
+    <span>{{ getInitials(apprenant.fullName) }}</span>
   </div>
 </button>
+
 </mat-toolbar>

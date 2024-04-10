@@ -9,12 +9,14 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
 import { AppDashboardComponent } from './dashboard/dashboard.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [AppDashboardComponent],
   imports: [
     CommonModule,
     MaterialModule,
+    MatSelectModule,
     FormsModule,
     NgApexchartsModule,
     RouterModule.forChild(PagesRoutes),

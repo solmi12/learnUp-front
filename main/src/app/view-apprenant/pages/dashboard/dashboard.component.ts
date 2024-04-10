@@ -72,9 +72,9 @@ export class AppDashboardApprenantComponent {
       switchMap((data: any) => {
         this.apprenantId = data.apprenantId;
         console.log('Apprenant ID:', this.apprenantId);
-        return this.apprenantCourService.getCoursByApprenantId(this.apprenantId);
+        return this.apprenantCourService.getCoursApprenantByApprenantId(this.apprenantId);
       })
-    ).subscribe((courses: Cour[]) => {
+    ).subscribe((courses: ApprenantCour[]) => {
       console.log('Courses for Apprenant:', courses);
       // Now that you have the courses for the apprenant, fetch the accepted courses
       this.getAcceptedCourses();
@@ -85,29 +85,9 @@ export class AppDashboardApprenantComponent {
 
   
 
-  isCourseAdded(courId: number): Observable<boolean> {
-    return this.apprenantCourService.getCoursByApprenantId(this.apprenantId).pipe(
-      map((courses: Cour[]) => {
-        return courses.some((course) => course.courId  === courId);
-      })
-    );
-  }
 
   
-  checkIfCourseIsAdded(courId: number): Observable<boolean> {
-    return this.apprenantCourService.getCoursByApprenantId(this.apprenantId).pipe(
-      map((courses: Cour[]) => {
-        const isAdded = courses.some((course) => course.courId === courId);
-        console.log('Course added:', isAdded);
-        console.log(this.apprenantId);
-        return isAdded;
-      }),
-      catchError(error => {
-        console.error('Error fetching courses for apprenant:', error);
-        return of(false); // Return a default value if there's an error
-      })
-    );
-  }
+
   
 
   addApprenantCour(courId: number): void {

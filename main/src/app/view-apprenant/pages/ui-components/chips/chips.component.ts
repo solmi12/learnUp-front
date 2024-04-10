@@ -19,7 +19,8 @@ export class AppChipsApprenantComponent implements OnInit {
   loading: boolean = true;
   apprenant: Apprenant| null = null;
   questionResponses$: Observable<QuestionReponse[]>;
-
+formateurId: number = 1;
+  question: string = ''; 
   constructor(
     @Inject(UserService) private userService: UserService,
     @Inject(QuestionResponseService) private questionReponseService: QuestionResponseService,){}
@@ -54,4 +55,5 @@ export class AppChipsApprenantComponent implements OnInit {
         }
       );
     }  
+
 }

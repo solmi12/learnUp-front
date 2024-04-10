@@ -2,14 +2,17 @@ import { Component, Inject, type OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DomSanitizer, type SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { of, switchMap, type Observable, map, catchError, Subject, takeUntil } from 'rxjs';
+import { of, switchMap, type Observable, map, catchError, Subject, takeUntil, tap, forkJoin } from 'rxjs';
+import type { ApprenantCour } from 'src/app/models/ApprenantCour';
 import type { Chapitre } from 'src/app/models/Chapitre';
 import type { QuestionReponse } from 'src/app/models/QuestionReponse';
+import type { SouhaitsDto } from 'src/app/models/SouhaitsDto';
 import type { Cour } from 'src/app/models/cour.model';
 import { ApprenantCourService } from 'src/app/services/apprenant-cour.service';
 import { ChapitreService } from 'src/app/services/chapitre.service';
 import { CourService } from 'src/app/services/cour.service';
 import { QuestionResponseService } from 'src/app/services/question-response.service';
+import { SouhaitsService } from 'src/app/services/souhaits.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,7 +21,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./tooltips.component.scss']
 })
 export class AppTooltipsComponent implements OnInit{
- 
+  matchedCourse: ApprenantCour | undefined;
   courAdded$: Observable<boolean> = of(false); // Default value
   private destroy$: Subject<void> = new Subject<void>();
   courId: number = 0; 
@@ -37,8 +40,11 @@ export class AppTooltipsComponent implements OnInit{
     courId:0,
     youtubeVideoLink:''
   }
-  messageToSend: string = ''; 
+  question: string = ''; 
   courIdToCheck: number = 1; 
+  isCourseAdded: boolean = false;
+  isSouhaitsAdded:boolean = false;
+  matchedSouhait: SouhaitsDto | undefined;
   apprenantId: number = 0;
   loading: boolean = false; 
   constructor(
@@ -48,83 +54,174 @@ export class AppTooltipsComponent implements OnInit{
     @Inject(UserService) private userService: UserService,
     @Inject(QuestionResponseService) private questionReponseService:QuestionResponseService,
     @Inject(ApprenantCourService) private apprenantCourService:ApprenantCourService,
-   @Inject(DomSanitizer) private sanitizer: DomSanitizer
+   @Inject(DomSanitizer) private sanitizer: DomSanitizer,
+   @Inject(SouhaitsService)private souhaitsService:SouhaitsService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(params => {
-      this.courId = params['id'];
+    this.route.params.subscribe(params => {
+      this.courId = +params['id']; 
       if (this.courId) {
-        this.getUserDetails();
+        this.getUserDetails(); 
       }
     });
-    this.getChapitres(this.courId)
+    this.getChapitres(this.courId);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  getUserDetails(): void {
+    const storedId = localStorage.getItem('userId');
+    const userId = parseInt(storedId || '', 10); 
+  
+    if (!isNaN(userId)) {
+      this.userService.getUserById(userId).pipe(
+        takeUntil(this.destroy$),
+        switchMap((user: any) => {
+          this.apprenantId = user.apprenantId;
+  
+          return forkJoin([
+            this.apprenantCourService.getCoursApprenantByApprenantId(this.apprenantId),
+            this.souhaitsService.getSouhaitsByApprenantId(this.apprenantId)
+          ]).pipe(
+            tap(([apprenantCourses, souhaitsList]) => {
+              console.log('apprenantCourses:', apprenantCourses);
+              console.log('souhaitsList:', souhaitsList);
+            }),
+            switchMap(([apprenantCourses, souhaitsList]) => {
+              const matchedCourse = apprenantCourses?.find(course =>
+                course.courId === this.courId && course.apprenantId === this.apprenantId
+              );
+  
+              console.log('MatchedCourse:', matchedCourse);
+  
+              if (matchedCourse) {
+                console.log('ApprenantCour ID:', matchedCourse.apprenantCourid);
+                console.log('Apprenant ID:', matchedCourse.apprenantId);
+                console.log('Cour ID:', matchedCourse.courId);
+                console.log('Added Date:', matchedCourse.addedDate);
+                this.isCourseAdded = true; 
+              } else {
+                console.log('No matching ApprenantCour found for courId:', this.courId, 'and apprenantId:', this.apprenantId);
+                this.isCourseAdded = false;
+              }
+  
+              this.matchedCourse = matchedCourse;
+              
+              const matchedSouhait = souhaitsList?.find((souhait: SouhaitsDto) => souhait.courId === this.courId);
+  
+              console.log('MatchedSouhait:', matchedSouhait);
+              this.matchedSouhait = matchedSouhait;
+              this.isSouhaitsAdded = !!matchedSouhait;
+  
+              return of(apprenantCourses); 
+            })
+          );
+        })
+      ).subscribe((apprenantCourses: ApprenantCour[]) => {
+        this.getCourDetails(this.courId);
+      });
+    } else {
+      console.error('Invalid user ID stored in localStorage');
+    }
   }
-
- getUserDetails(): void {
-  const storedId = localStorage.getItem('userId');
-  console.log('Stored ID:', storedId);
-  const userId = parseInt(storedId || '', 10); // Parse to integer with base 10
-
-  if (!isNaN(userId)) {
-    this.userService.getUserById(userId).pipe(
-      takeUntil(this.destroy$),
-      switchMap((user: any) => {
-        this.apprenantId = user.apprenantId;
-        console.log('Apprenant ID:', this.apprenantId);
-        return this.apprenantCourService.getCoursByApprenantId(this.apprenantId);
-      })
-    ).subscribe((courses: Cour[]) => {
-      console.log('Courses for Apprenant:', courses);
-      // Now that you have the courses for the apprenant, fetch the accepted courses
-      this.getCourDetails(this.courId);
-    });
-  } else {
-    console.error('Invalid user ID stored in localStorage');
+  
+  
+  toggleCourse(): void {
+    if (this.isCourseAdded) {
+      this.deleteApprenantCour();
+    } else {
+      this.addApprenantCour(this.courId);
+    }
+  
+    this.getUserDetails();
   }
-}
-
-
-
-
+    
+  toggleSouhaits(): void {
+    if (this.isSouhaitsAdded) {
+      this.deleteSouhait();
+    } else {
+      this.addNewSouhait(this.courId);
+    }
+  
+    this.getUserDetails();
+  }
+  
   addApprenantCour(courId: number): void {
     const apprenantCour = {
-      apprenantCourid: 0, 
+      apprenantCourid: 0,
       apprenantId: this.apprenantId,
       courId: courId,
-      addedDate: new Date() 
+      addedDate: new Date()
     };
     this.apprenantCourService.addApprenantCour(apprenantCour).subscribe(
       (result) => {
         console.log('Course added to ApprenantCour:', result);
-        // Optionally, you can update the UI or perform any additional logic here
+        this.isCourseAdded = true; 
       },
       (error) => {
         console.error('Error adding Cour to ApprenantCour:', error);
       }
     );
   }
-  deleteApprenantCour(courId: number): void {
-    this.apprenantCourService.deleteApprenantCour(courId).subscribe(
-      () => {
-        console.log('Course deleted from ApprenantCour');
-        // Optionally, you can update the UI or perform any additional logic here
+
+  addNewSouhait(courId: number): void {
+    const newSouhait: SouhaitsDto = {
+      souhaitId: 0, // Set appropriate values for your SouhaitsDto object
+      apprenantId: this.apprenantId,
+      courId: courId,
+    };
+
+    this.souhaitsService.addSouhait(newSouhait).subscribe(
+      (response) => {
+        console.log('New Souhait added:', response);
+        this.isSouhaitsAdded = true;
       },
       (error) => {
-        console.error('Error deleting course from ApprenantCour:', error);
+        console.error('Error adding Souhait:', error);
+        // Handle error, display error message, etc.
       }
     );
   }
-
+  deleteSouhait(): void {
+    console.log('Deleting ApprenantCour...');
+    console.log('MatchedSouhait:', this.matchedSouhait); // Debugging
   
+    if (this.matchedSouhait) {
+      const souhaitId = this.matchedSouhait.souhaitId;
+  
+      this.souhaitsService.deleteSouhait(souhaitId).subscribe(
+        () => {
+          console.log('Course deleted from ApprenantCour');
+          this.isSouhaitsAdded = false; // Update isCourseAdded after successful deletion
+        },
+        (error) => {
+          console.error('Error deleting course from ApprenantCour:', error);
+        }
+      );
+    } else {
+      console.error('No matching Souhait found to delete.');
+    }
+  }
+  
+  deleteApprenantCour(): void {
+    console.log('Deleting ApprenantCour...');
+    console.log('MatchedCourse:', this.matchedCourse); 
 
+    if (this.matchedCourse) {
+      const apprenantCourId = this.matchedCourse.apprenantCourid;
+
+      this.apprenantCourService.deleteApprenantCour(apprenantCourId).subscribe(
+        () => {
+          console.log('Course deleted from ApprenantCour');
+          this.isCourseAdded = false; 
+        },
+        (error) => {
+          console.error('Error deleting course from ApprenantCour:', error);
+        }
+      );
+    } else {
+      console.error('No matching ApprenantCour found to delete.');
+    }
+  }
 
   
   sanitizePdf(pdfData: string): SafeResourceUrl {
@@ -135,10 +232,9 @@ export class AppTooltipsComponent implements OnInit{
     this.courService.getByCourId(courId).pipe(
       switchMap((data: Cour) => {
         console.log('Response Object:', data);
-        this.loading = false; // Set loading to false after data is fetched
+        this.loading = false; 
         this.cour = data;
   
-        // Extract formateurId from the cour data
         const formateurId = data.formateurId;
         console.log('Formateur ID:', formateurId);
   
@@ -147,20 +243,21 @@ export class AppTooltipsComponent implements OnInit{
     ).subscribe();
   }
 
-  addQuestionResponse(formateurId: number, apprenantId: number, message: string): void {
+  addQuestionResponse(formateurId: number, apprenantId: number, question: string): void {
     const questionResponse: QuestionReponse = {
       qaId:0,
       formateurId: formateurId,
       apprenantId: apprenantId,
       needsReview:true,
-      message: message,
+      question: question,
+      reponse:'',
       addedDate: new Date()
     };
   
     this.questionReponseService.addQuestion(questionResponse).subscribe(
       (result: QuestionReponse) => {
         console.log('Question response added:', result);
-        // Optionally, you can update the UI or perform any additional logic here
+      
       },
       (error) => {
         console.error('Error adding question response:', error);
@@ -169,19 +266,31 @@ export class AppTooltipsComponent implements OnInit{
   }
   
   sendMessage(): void {
-    if (this.messageToSend.trim() !== '') {
-      // Call your method to add the question response with the message
-      this.addQuestionResponse(this.cour!.formateurId, this.apprenantId, this.messageToSend);
+    if (this.question.trim() !== '') {
+      this.addQuestionResponse(this.cour!.formateurId, this.apprenantId, this.question);
   
-      // Optionally, you can reset the input field after sending the message
-      this.messageToSend = '';
+      this.question = '';
     }
   }
+  getYouTubeThumbnail(videoLink: string): string {
+
+    const videoId = this.extractVideoId(videoLink);
+
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
   
+  private extractVideoId(videoLink: string): string {
+    const videoIdRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+    const match = videoLink.match(videoIdRegex);
+    if (match && match.length > 1) {
+      return match[1];
+    }
+    return '';
+  }
   getChapitres(courId: number): void {
     this.chapitreService.getChapitresByCourId(courId).subscribe(
       (data: Chapitre[]) => {
-        this.chapitres = data; // Assign array of Chapitre objects to chapitres property
+        this.chapitres = data; 
       },
       (error) => {
         console.error('Error fetching chapitres:', error);

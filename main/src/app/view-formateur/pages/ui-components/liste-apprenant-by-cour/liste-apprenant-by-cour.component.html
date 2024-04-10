@@ -1,0 +1,21 @@
+<div class="page-container">
+    <table class="cour-table">
+      <thead>
+        <tr>
+          <th *ngFor="let cour of cours">{{ cour.courName }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <ng-container *ngFor="let cour of cours">
+            <td>
+              <ul>
+                <li *ngFor="let apprenant of apprenantsMap.get(cour.courId!)">{{ apprenant.fullName }}</li>
+              </ul>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -22,7 +22,7 @@ export class ListQuestionsComponent implements OnInit {
   formateur: Formateur | null = null;
   questionResponses$: Observable<QuestionReponse[]>;
   apprenant$: Observable<Apprenant>; // Observable for Apprenant
-
+  newResponse: string = '';
   constructor(
     @Inject(UserService) private userService: UserService,
     @Inject(QuestionResponseService) private questionReponseService: QuestionResponseService,
@@ -62,17 +62,17 @@ export class ListQuestionsComponent implements OnInit {
       }
     );
   }
-  updateResponse(response: QuestionReponse): void {
-    // Call the service method to update the question response
-    this.questionReponseService.updateQuestionReponse(response.qaId, response).subscribe(
+  updateResponse(response: QuestionReponse, newResponse: string): void {
+    const updatedResponse: QuestionReponse = { ...response, reponse: newResponse };
+    this.questionReponseService.updateQuestionReponse(response.qaId, updatedResponse).subscribe(
       updatedResponse => {
         console.log('Updated response:', updatedResponse);
-        // Optionally, update the local list of question responses if needed
       },
       error => {
         console.error('Error updating response:', error);
-        // Handle error if necessary
       }
     );
   }
+  
+  
 }

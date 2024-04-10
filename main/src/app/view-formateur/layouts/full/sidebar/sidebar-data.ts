@@ -32,6 +32,12 @@ export const navItems: NavItem[] = [
   },
  
 
+  
+  {
+    displayName: 'Mes Apprenants',
+  
+    route: '/ui-components/mes-apprenants',
+  },
 
 
 

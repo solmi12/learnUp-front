@@ -3,8 +3,8 @@ export interface QuestionReponse {
      qaId: number;
    
     apprenantId: number;
-    message: string;
-    
+    reponse: string;
+    question:string;
     needsReview: boolean;
     addedDate: Date;
   }

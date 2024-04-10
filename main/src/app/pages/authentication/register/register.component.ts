@@ -31,10 +31,12 @@ export class AppSideRegisterComponent {
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      role: ['APPRENANT'], // Assuming default role is STUDENT
+      role: ['APPRENANT'], // Assuming default role is APPRENANT
       interests: [''], // Add interests field if needed
       educationLevel: [''], // Add educationLevel field if needed
+      classe: ['', Validators.required] // Add classe field with Validators.required
     });
+    
 
 
     this.formateurForm = this.fb.group({
@@ -115,6 +117,7 @@ export class AppSideRegisterComponent {
         apprenantId: 0, // Assign an ID if needed
         userDTO: user,
         fullName: formData.fullName,
+        classe:formData.classe,
         interests: formData.interests,
         educationLevel: formData.educationLevel,
       };

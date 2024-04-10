@@ -41,6 +41,7 @@ import { SidebarApprenantComponent } from './view-apprenant/layouts/full/sidebar
 import { HeaderApprenantComponent } from './view-apprenant/layouts/full/header/header.component';
 import { BrandingApprenantComponent } from './view-apprenant/layouts/full/sidebar/branding.component';
 import { AppNavItemApprenantComponent } from './view-apprenant/layouts/full/sidebar/nav-item/nav-item-formateur.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AppNavItemApprenantComponent } from './view-apprenant/layouts/full/side
     MaterialModule,
     RouterModule.forRoot([]),
     AppRoutingModule,
+    MatSelectModule,
     HttpClientModule,
    NgApexchartsModule,
    TablerIconsModule.pick(TablerIcons),

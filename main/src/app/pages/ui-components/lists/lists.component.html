@@ -1,55 +1,60 @@
 <mat-card class="cardWithShadow theme-card">
- 
   <mat-card-content class="b-t-1">
-    <mat-table [dataSource]="apprenants" matSort>
+    <!-- Iterate over apprenants for each classe -->
+    <div *ngFor="let classeKey of Object.keys(apprenantsByClasse)">
+      <h3>{{ classeKey }} </h3>
+      <mat-table [dataSource]="apprenantsByClasse[classeKey]" matSort>
 
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.email }}</mat-cell>
-      </ng-container>
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.email }}</mat-cell>
+        </ng-container>
 
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.role }}</mat-cell>
-      </ng-container>
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.role }}</mat-cell>
+        </ng-container>
 
-      <!-- Full Name Column -->
-      <ng-container matColumnDef="fullName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">{{ apprenant.fullName }}</mat-cell>
-      </ng-container>
+        <!-- Full Name Column -->
+        <ng-container matColumnDef="fullName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">{{ apprenant.fullName }}</mat-cell>
+        </ng-container>
 
-      <!-- Education Level Column -->
-      <ng-container matColumnDef="educationLevel">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Education Level</mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">{{ apprenant.educationLevel }}</mat-cell>
-      </ng-container>
+        <!-- Education Level Column -->
+        <ng-container matColumnDef="educationLevel">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Education Level</mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">{{ apprenant.educationLevel }}</mat-cell>
+        </ng-container>
 
-      <!-- Interests Column -->
-      <ng-container matColumnDef="interests">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Interests</mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">{{ apprenant.interests }}</mat-cell>
-      </ng-container>
+        <!-- Interests Column -->
+        <ng-container matColumnDef="interests">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Interests</mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">{{ apprenant.interests }}</mat-cell>
+        </ng-container>
 
-      <!-- Delete Column -->
-      <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let apprenant">
-          <button mat-icon-button color="warn" (click)="deleteApprenant(apprenant.apprenantId)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">
+            <button mat-icon-button color="warn" (click)="deleteApprenant(apprenant.apprenantId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-    </mat-table>
-    <mat-divider></mat-divider>
+      </mat-table>
+      <mat-divider></mat-divider>
+    </div>
+
+    <!-- Display a message if no apprenants with classe are available -->
+    <div *ngIf="!apprenantsByClasse || Object.keys(apprenantsByClasse).length === 0">
+      <p class="text-muted">No apprenants with classe available</p>
+    </div>
   </mat-card-content>
 </mat-card>
-<div *ngIf="!apprenants || apprenants.length === 0">
-  <p class="text-muted">No data available</p>
-</div>

@@ -17,12 +17,17 @@ export class ApprenantCourService {
     return this.http.post<ApprenantCour>(`${this.baseUrl}/add`, dto);
   }
 
-  deleteApprenantCour(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  deleteApprenantCour(apprenantCourid: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${apprenantCourid}`);
   }
 
-  getCoursByApprenantId(apprenantId: number): Observable<Cour[]> {
-    return this.http.get<Cour[]>(`${this.baseUrl}/cours/${apprenantId}`);
+
+    getCoursByApprenantId(apprenantId: number): Observable<Cour[]> {
+    const url = `${this.baseUrl}/cours/${apprenantId}`;
+    return this.http.get<Cour[]>(url);
+  }
+  getCoursApprenantByApprenantId(apprenantId: number): Observable<ApprenantCour[]> {
+    return this.http.get<ApprenantCour[]>(`${this.baseUrl}/coursApprenant/${apprenantId}`);
   }
 
   getApprenantsByCourId(courId: number): Observable<Apprenant[]> {
