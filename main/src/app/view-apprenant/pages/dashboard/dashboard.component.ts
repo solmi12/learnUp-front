@@ -18,7 +18,6 @@ import {
 } from 'ng-apexcharts';
 import { catchError, switchMap, throwError, type Observable, map, of } from 'rxjs';
 import type { Apprenant } from 'src/app/models/Apprenant';
-import type { ApprenantCour } from 'src/app/models/ApprenantCour';
 import type { Category, Cour } from 'src/app/models/cour.model';
 import { ApprenantCourService } from 'src/app/services/apprenant-cour.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';

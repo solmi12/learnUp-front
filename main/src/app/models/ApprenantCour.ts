@@ -1,7 +1,7 @@
-export interface ApprenantCour {
+export interface ApprenantCourDto {
     apprenantCourid: number;
     apprenantId: number;
     courId: number;
-    addedDate: string;
+    addedDate: Date;
   }
   

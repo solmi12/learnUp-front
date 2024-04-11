@@ -46,7 +46,7 @@ formateurId:number = 0
   ngOnInit(): void {
     const storedId = localStorage.getItem('userId');
     console.log('Stored ID:', storedId);
-    const userId = parseInt(storedId || '', 10); // Parse to integer with base 10
+    const userId = parseInt(storedId || '', 10);
     if (!isNaN(userId)) {
       this.getUserDetails(userId);
     } else {
@@ -72,7 +72,7 @@ formateurId:number = 0
   }
   getInitials(fullName: string | undefined): string {
     if (!fullName) {
-      return ''; // Handle case where fullName is undefined
+      return ''; 
     }
     const initials = fullName.trim().split(' ')
       .map(word => word.charAt(0))
@@ -98,12 +98,9 @@ formateurId:number = 0
   getUserDetails(userId: number): void {
     this.userService.getUserById(userId).pipe(
       switchMap((data: any) => {
-        // Log the entire response object to the console for debugging
         console.log('Response Object:', data);
-
-        // Extract the Admin ID from the response directly
-        this.formateurId = data.formateurId; // Assign adminId from response
-        console.log('Formateur ID:', this.formateurId); // Log adminId
+        this.formateurId = data.formateurId; 
+        console.log('Formateur ID:', this.formateurId); 
 
         return this.formateurService.getFormateurById(this.formateurId); 
       }),
@@ -115,12 +112,12 @@ formateurId:number = 0
     ).subscribe(
       (formateurData: Formateur) => {
         this.formateur = formateurData;
-        console.log(this.formateur); // Handle admin data as needed
+        console.log(this.formateur); 
       }
     );
   }
   logout(): void {
-    this.authService.logout(); // Call the logout method from AuthServiceService
-    this.router.navigateByUrl('/authentication/login'); // Navigate to the signin path after logout
+    this.authService.logout(); 
+    this.router.navigateByUrl('/authentication/login'); 
   }
 }

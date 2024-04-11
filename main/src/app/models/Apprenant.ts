@@ -1,4 +1,4 @@
-import type { ApprenantCour } from "./ApprenantCour";
+
 import type { userDTO } from "./user";
 
 export interface Apprenant {

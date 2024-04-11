@@ -10,7 +10,7 @@
         <tbody>
             <tr *ngFor="let courItem of courList" (click)="viewCourDetails(courItem.courId!)">
                 <td>{{ courItem.courName }}</td>
-                <td>{{ courItem.price }}$</td>
+                <td>{{ courItem.price }}dt</td>
                 <td>
                     <div class="haj-image-container">
                         <img *ngIf="courItem.imageData" [src]="'data:image/png;base64,' + courItem.imageData" alt="Course Image" class="haj-image" />

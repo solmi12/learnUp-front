@@ -1,15 +1,33 @@
-<div *ngIf="questionResponses$ | async as questionResponses; else loadingTemplate">
-    <h2>Reponses</h2>
-    <ng-container *ngFor="let response of questionResponses">
-        <div class="question-container">
-            <p class="question">{{ response.question }}</p>
-            <p class="date">{{ response.addedDate | date }}</p>
-            <p class="message">{{ response.reponse }}</p>
+<div class="container">
+    <div *ngIf="!loading">
+      <ng-container *ngFor="let formateur of formateurs">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="card-title mb-0">Formateur: {{ formateur.fullName }}</h5>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let response of formateurQuestionReponses[formateur.formateurId]" class="message-container">
+              <div class="message">
+                <p class="question">{{ response.question }}</p>
+                <p class="date">{{ response.addedDate | date }}</p>
+                <p class="message-body">{{ response.reponse }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Type a message..." [(ngModel)]="newQuestions[formateur.formateurId]">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button" (click)="addQuestionResponse(formateur.formateurId, newQuestions[formateur.formateurId])">Send</button>
+              </div>
+            </div>
+          </div>
         </div>
-    </ng-container>
-
-</div>
-
-<ng-template #loadingTemplate>
-    <p>Loading...</p>
-</ng-template>
+      </ng-container>
+    </div>
+  
+    <ng-template #loadingTemplate>
+      <p>Loading...</p>
+    </ng-template>
+  </div>
+  

@@ -1,42 +1,44 @@
-.table-container {
-    margin-top: 20px;
-  
-    .cour-table {
+.table-responsive {
+  margin-top: 20px;
+
+  .table {
+    border-radius: 8px; // Rounded corners for the table
+  }
+
+  th, td {
+    border: none; // Remove default border
+    padding: 12px;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f8f9fa; // Light background for table headers
+  }
+
+  tr:hover {
+    background-color: #f0f0f0; // Light hover background for rows
+    transition: background-color 0.2s ease;
+  }
+
+  .haj-image-container {
+    width: 50px; // Adjust width as needed
+    height: 50px; // Adjust height as needed
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; // Rounded shape for the image container
+
+    .haj-image {
       width: 100%;
-      border-collapse: collapse;
-  
-      th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-      }
-  
-      th {
-        background-color: #f2f2f2;
-      }
-  
-      tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-  
-      tr:hover {
-        background-color: #ddd;
-      }
-  
-      .haj-image-container {
-        width: 50px; /* Adjust width as needed */
-        height: 50px; /* Adjust height as needed */
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-  
-        .haj-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%; // Rounded shape for the image
+      transition: transform 0.3s ease; // Smooth scaling animation
+
+      &:hover {
+        transform: scale(1.1); // Zoom in on hover
       }
     }
   }
-  
+}

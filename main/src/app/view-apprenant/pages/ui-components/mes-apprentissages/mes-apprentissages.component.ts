@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil, tap, Subject, switchMap } from 'rxjs';
-import { ApprenantCour } from 'src/app/models/ApprenantCour';
 import { ApprenantCourService } from 'src/app/services/apprenant-cour.service';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { UserService } from 'src/app/services/user.service';
 import { Cour } from 'src/app/models/cour.model';
 import { CourService } from 'src/app/services/cour.service';
+import type { ApprenantCourDto } from 'src/app/models/ApprenantCour';
 
 @Component({
   selector: 'app-mes-apprentissages',
@@ -16,7 +16,7 @@ import { CourService } from 'src/app/services/cour.service';
 export class MesApprentissagesComponent implements OnInit {
   apprenantId: number = 0;
   private destroy$: Subject<void> = new Subject<void>();
-  apprenantCourList: ApprenantCour[] = [];
+  apprenantCourList: ApprenantCourDto[] = [];
   courList: Cour[] = [];
 
   constructor(
@@ -38,7 +38,7 @@ export class MesApprentissagesComponent implements OnInit {
           this.apprenantId = user.apprenantId;
         }),
         switchMap(() => this.apprenantCourService.getCoursApprenantByApprenantId(this.apprenantId))
-      ).subscribe((apprenantCourses: ApprenantCour[]) => {
+      ).subscribe((apprenantCourses: ApprenantCourDto[]) => {
         this.apprenantCourList = apprenantCourses;
 
         // Extract courIds from apprenantCourList

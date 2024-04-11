@@ -56,7 +56,7 @@ export class HeaderApprenantComponent implements OnInit {
   ngOnInit(): void {
     const storedId = localStorage.getItem('userId');
     console.log('Stored ID:', storedId);
-    const userId = parseInt(storedId || '', 10); // Parse to integer with base 10
+    const userId = parseInt(storedId || '', 10); 
     if (!isNaN(userId)) {
       this.getUserDetails(userId);
     } else {
@@ -68,7 +68,7 @@ export class HeaderApprenantComponent implements OnInit {
 
   getInitials(fullName: string | undefined): string {
     if (!fullName) {
-      return ''; // Handle case where fullName is undefined
+      return ''; 
     }
     const initials = fullName.trim().split(' ')
       .map(word => word.charAt(0))
@@ -99,24 +99,22 @@ export class HeaderApprenantComponent implements OnInit {
   getUserDetails(userId: number): void {
     this.userService.getUserById(userId).pipe(
       switchMap((data: any) => {
-        // Log the entire response object to the console for debugging
         console.log('Response Object:', data);
 
-        // Extract the Admin ID from the response directly
-        this.apprenantId = data.apprenantId; // Assign adminId from response
-        console.log('ApprenantId:', this.apprenantId); // Log adminId
+        this.apprenantId = data.apprenantId; 
+        console.log('ApprenantId:', this.apprenantId); 
 
         return this.apprenantService.getStudentById(this.apprenantId); 
       }),
       catchError(error => {
-        console.error('Error fetching formateur:', error);
+        console.error('Error fetching apprenant:', error);
    
-        return throwError('Error fetching formateur');
+        return throwError('Error fetching apprenant');
       })
     ).subscribe(
       (apprenantData: Apprenant) => {
         this.apprenant = apprenantData;
-        console.log(this.apprenant); // Handle admin data as needed
+        console.log(this.apprenant);
       }
     );
   }
@@ -130,7 +128,7 @@ export class HeaderApprenantComponent implements OnInit {
 
 
   logout(): void {
-    this.authService.logout(); // Call the logout method from AuthServiceService
-    this.router.navigateByUrl('/authentication/login'); // Navigate to the signin path after logout
+    this.authService.logout(); 
+    this.router.navigateByUrl('/authentication/login'); 
   }
 }

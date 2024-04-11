@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
-import type { ApprenantCour } from 'src/app/models/ApprenantCour';
 import type { SouhaitsDto } from 'src/app/models/SouhaitsDto';
 import type { Cour } from 'src/app/models/cour.model';
 import { ApprenantCourService } from 'src/app/services/apprenant-cour.service';
