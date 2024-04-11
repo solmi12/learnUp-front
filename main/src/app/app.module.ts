@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { DashbordUserComponent } from './dashbord-user/dashbord-user.component';
 import { FullFormateurComponent } from './view-formateur/layouts/full/full.component';
 import { SidebarFormateurComponent } from './view-formateur/layouts/full/sidebar/sidebar.component';
@@ -95,7 +95,9 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     BrowserAnimationsModule,
   ],
-  providers:[],
+  providers:[
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+  ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

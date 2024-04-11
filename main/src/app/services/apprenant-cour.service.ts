@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import type { ApprenantCour } from '../models/ApprenantCour';
-import type { Observable } from 'rxjs';
+import { catchError, throwError, type Observable } from 'rxjs';
 import type { Cour } from '../models/cour.model';
 import type { Apprenant } from '../models/Apprenant';
 
@@ -22,16 +22,28 @@ export class ApprenantCourService {
   }
 
 
-    getCoursByApprenantId(apprenantId: number): Observable<Cour[]> {
-    const url = `${this.baseUrl}/cours/${apprenantId}`;
-    return this.http.get<Cour[]>(url);
-  }
-  getCoursApprenantByApprenantId(apprenantId: number): Observable<ApprenantCour[]> {
-    return this.http.get<ApprenantCour[]>(`${this.baseUrl}/coursApprenant/${apprenantId}`);
+  getCoursByApprenantId(apprenantId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/cours/${apprenantId}`);
   }
 
-  getApprenantsByCourId(courId: number): Observable<Apprenant[]> {
-    return this.http.get<Apprenant[]>(`${this.baseUrl}/apprenants/${courId}`);
+  getCoursApprenantByApprenantId(apprenantId: number): Observable<any> {
+    const url = `${this.baseUrl}/coursApprenant/${apprenantId}`;
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        let errorMessage = 'Error fetching souhaits.';
+        if (error.error instanceof ErrorEvent) {
+          // Client-side error
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          // Server-side error
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        return throwError(errorMessage);
+      })
+    );
+  }
+  getApprenantsByCourId(courId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/apprenants/${courId}`);
   }
 
 }

@@ -57,30 +57,9 @@ export class AppDashboardApprenantComponent {
   ngOnInit(): void {
     this.getCategories(); // Fetch categories first if needed
   
-    const storedId = localStorage.getItem('userId');
-    console.log('Stored ID:', storedId);
-    const userId = parseInt(storedId || '', 10); // Parse to integer with base 10
-    if (!isNaN(userId)) {
-      this.getUserDetails(userId);
-    } else {
-      console.error('Invalid user ID stored in localStorage');
-    }
+this.getAcceptedCourses();
   }
-  
-  getUserDetails(userId: number): void {
-    this.userService.getUserById(userId).pipe(
-      switchMap((data: any) => {
-        this.apprenantId = data.apprenantId;
-        console.log('Apprenant ID:', this.apprenantId);
-        return this.apprenantCourService.getCoursApprenantByApprenantId(this.apprenantId);
-      })
-    ).subscribe((courses: ApprenantCour[]) => {
-      console.log('Courses for Apprenant:', courses);
-      // Now that you have the courses for the apprenant, fetch the accepted courses
-      this.getAcceptedCourses();
-    });
-  }
-  
+
   
 
   
@@ -90,35 +69,7 @@ export class AppDashboardApprenantComponent {
 
   
 
-  addApprenantCour(courId: number): void {
-    const apprenantCour = {
-      apprenantCourid: 0, 
-      apprenantId: this.apprenantId,
-      courId: courId,
-      addedDate: new Date() 
-    };
-    this.apprenantCourService.addApprenantCour(apprenantCour).subscribe(
-      (result) => {
-        console.log('Course added to ApprenantCour:', result);
-        // Optionally, you can update the UI or perform any additional logic here
-      },
-      (error) => {
-        console.error('Error adding Cour to ApprenantCour:', error);
-      }
-    );
-  }
-  
-  deleteApprenantCour(courId: number): void {
-    this.apprenantCourService.deleteApprenantCour(courId).subscribe(
-      () => {
-        console.log('Course deleted from ApprenantCour');
-        // Optionally, you can update the UI or perform any additional logic here
-      },
-      (error) => {
-        console.error('Error deleting course from ApprenantCour:', error);
-      }
-    );
-  }
+
   
     
   viewCourDetails(courId: number): void {

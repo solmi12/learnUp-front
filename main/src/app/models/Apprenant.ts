@@ -8,5 +8,4 @@ export interface Apprenant {
   interests: string;
   classe:string;
   educationLevel: string;
-  apprenantCourList?: ApprenantCour[];
 }

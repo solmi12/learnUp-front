@@ -1,11 +1,11 @@
 <!-- tooltips.component.html -->
 <div class="page-container">
-  <span class="top-right-icons" (click)="toggleSouhaits()">
+  <span class="top-right-icons" (click)="addNewSouhait(courId)">
     <mat-icon *ngIf="isSouhaitsAdded" aria-hidden="true" style="color: red;">clear</mat-icon>
     <mat-icon *ngIf="!isSouhaitsAdded" aria-hidden="true" style="color: gold;">star</mat-icon>
   </span>
 <div class="cour-details" *ngIf="cour">
-  <button (click)="toggleCourse()">
+  <button (click)="addApprenantCour(courId)">
     <span *ngIf="isCourseAdded">
       <mat-icon aria-hidden="true">delete</mat-icon>
 

@@ -104,7 +104,7 @@ export class HeaderApprenantComponent implements OnInit {
 
         // Extract the Admin ID from the response directly
         this.apprenantId = data.apprenantId; // Assign adminId from response
-        console.log('Formateur ID:', this.apprenantId); // Log adminId
+        console.log('ApprenantId:', this.apprenantId); // Log adminId
 
         return this.apprenantService.getStudentById(this.apprenantId); 
       }),

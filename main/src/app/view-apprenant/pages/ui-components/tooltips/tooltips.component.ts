@@ -87,12 +87,8 @@ export class AppTooltipsComponent implements OnInit{
               console.log('souhaitsList:', souhaitsList);
             }),
             switchMap(([apprenantCourses, souhaitsList]) => {
-              const matchedCourse = apprenantCourses?.find(course =>
-                course.courId === this.courId && course.apprenantId === this.apprenantId
-              );
-  
+              const matchedCourse = apprenantCourses?.find((apprenantCour :ApprenantCour) =>apprenantCour.courId === this.courId && apprenantCour.apprenantId === this.apprenantId)
               console.log('MatchedCourse:', matchedCourse);
-  
               if (matchedCourse) {
                 console.log('ApprenantCour ID:', matchedCourse.apprenantCourid);
                 console.log('Apprenant ID:', matchedCourse.apprenantId);
@@ -116,7 +112,7 @@ export class AppTooltipsComponent implements OnInit{
             })
           );
         })
-      ).subscribe((apprenantCourses: ApprenantCour[]) => {
+      ).subscribe(() => {
         this.getCourDetails(this.courId);
       });
     } else {
@@ -125,32 +121,14 @@ export class AppTooltipsComponent implements OnInit{
   }
   
   
-  toggleCourse(): void {
-    if (this.isCourseAdded) {
-      this.deleteApprenantCour();
-    } else {
-      this.addApprenantCour(this.courId);
-    }
-  
-    this.getUserDetails();
-  }
-    
-  toggleSouhaits(): void {
-    if (this.isSouhaitsAdded) {
-      this.deleteSouhait();
-    } else {
-      this.addNewSouhait(this.courId);
-    }
-  
-    this.getUserDetails();
-  }
+ 
   
   addApprenantCour(courId: number): void {
-    const apprenantCour = {
+    const apprenantCour : ApprenantCour= {
       apprenantCourid: 0,
       apprenantId: this.apprenantId,
       courId: courId,
-      addedDate: new Date()
+      addedDate: '',
     };
     this.apprenantCourService.addApprenantCour(apprenantCour).subscribe(
       (result) => {
