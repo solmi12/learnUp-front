@@ -19,15 +19,15 @@ export class QuizService {
     return this.http.get<QuizDto>(`${this.baseUrl}/byCourId/${courId}`);
   }
 
-  saveQuiz(quizDto: QuizDto): Observable<QuizDto> {
+  saveQuiz(quizDto: QuizDto): Observable<QuizDto> { 
     return this.http.post<QuizDto>(`${this.baseUrl}/save`, quizDto);
   }
 
   deleteQuiz(quizId: number): Observable<boolean> {
-    return this.http.delete<boolean>(`${this.baseUrl}/quiz/delete/${quizId}`);
+    return this.http.delete<boolean>(`${this.baseUrl}/delete/${quizId}`);
   }
 
   checkUserResponse(quizResponse: QuizDto): Observable<boolean> {
-    return this.http.post<boolean>(`${this.baseUrl}/quiz/check-response`, quizResponse);
+    return this.http.post<boolean>(`${this.baseUrl}/check-response`, quizResponse);
   }
 }

@@ -24,7 +24,7 @@ import type { ApprenantCourDto } from 'src/app/models/ApprenantCour';
   })
   export class AppTooltipsComponent implements OnInit{
     matchedCourse: ApprenantCourDto | undefined;
-    courAdded$: Observable<boolean> = of(false); // Default value
+    courAdded$: Observable<boolean> = of(false); 
     private destroy$: Subject<void> = new Subject<void>();
     courId: number = 0; 
     cour:Cour | null = null;
