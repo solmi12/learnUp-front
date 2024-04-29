@@ -58,9 +58,9 @@ export class AppSideRegisterComponent {
     if (this.formateurForm.valid) {
       const formData = this.formateurForm.value;
       const formateur: Formateur = {
-        formateurId: 0, // Assign an ID if needed
+        formateurId: 0, 
         userDTO: {
-          userId: 0, // Assign an ID if needed
+          userId: 0, 
           email: formData.email,
           password: formData.password,
           role: formData.role, 
@@ -70,12 +70,12 @@ export class AppSideRegisterComponent {
         expertise: formData.expertise,
         experience: formData.experience,
         phoneNumber: formData.phoneNumber,
-        courDtos: null, // Set courDtos to null
+        courDtos: null,
       };
   
       const formateurAndUser: FormateurAndUserDTO = {
         formateurDTO: formateur,
-        userDTO: formateur.userDTO, // Assign userDTO from formateur
+        userDTO: formateur.userDTO, 
       };
   
       this.formateurService.addFormateur(formateurAndUser).subscribe(
@@ -100,7 +100,6 @@ export class AppSideRegisterComponent {
     this.showFormateur = true;
     this.showApprenant = false;
   }
-  // Method to handle form submission
   onSubmit(): void {
     if (this.registrationForm.valid) {
       const formData = this.registrationForm.value;
@@ -142,9 +141,9 @@ export class AppSideRegisterComponent {
 
   openSnackBar(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, // Duration in milliseconds
-      horizontalPosition: 'center', // Position of the snackbar
-      verticalPosition: 'bottom' // Position of the snackbar
+      duration: 3000, 
+      horizontalPosition: 'center', 
+      verticalPosition: 'bottom' 
     });
   }
 

@@ -1,58 +1,55 @@
-<!-- tooltips.component.html -->
-<div class="page-container">
-  <span class="top-right-icons" (click)="toggleSouhaits()">
-    <mat-icon *ngIf="isSouhaitsAdded" aria-hidden="true" style="color: red;">clear</mat-icon>
-    <mat-icon *ngIf="!isSouhaitsAdded" aria-hidden="true" style="color: gold;">star</mat-icon>
-  </span>
-<div class="cour-details" *ngIf="cour">
-  <button (click)="toggleCourse()">
-    <span *ngIf="isCourseAdded">
-      <mat-icon aria-hidden="true">delete</mat-icon>
+<div class="container-fluid">
+  <div class="row justify-content-end">
+    <div class="col-auto top-right-icons" (click)="toggleSouhaits()">
+      <button *ngIf="isSouhaitsAdded" class="btn btn-danger" aria-label="Remove from favorites">
+        <span class="material-icons">clear</span>
+      </button>
+      <button *ngIf="!isSouhaitsAdded" class="btn btn-warning" aria-label="Add to favorites">
+        <span class="material-icons">star</span>
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="cour-details" *ngIf="cour">
+        <button (click)="toggleCourse()" class="btn btn-primary">
+          <span *ngIf="isCourseAdded" class="material-icons">delete</span>
+          <span *ngIf="!isCourseAdded" class="material-icons">add</span> Start
+        </button>
+        <h2>{{ cour.courName }}</h2>
+        <p>{{ cour.description }}</p>
 
-    </span>
-    <span *ngIf="!isCourseAdded">
-      <mat-icon aria-hidden="true">add</mat-icon>
-    Start
-    </span>
-  </button>
-  <h2>{{ cour.courName }}</h2>
-  <p>{{ cour.description }}</p>
+        <div class="chapitres-container">
+          <div *ngFor="let chapitre of chapitres" class="chapitre-item">
+            <div class="chapitre-info">
+              <h3>{{ chapitre.titre }}</h3>
+              <p>{{ chapitre.description }}</p>
+              <p>Duration: {{ chapitre.dureeEstimee }} minutes</p>
+              <p>Order: {{ chapitre.ordreDansLeCours }}</p>
+              <div class="space"></div>
+              <div *ngIf="chapitre.pdfAttachment" class="mb-3">
+                <object type="application/pdf" [data]="sanitizePdf(chapitre.pdfAttachment)" class="pdf-object"></object>
+                <a [href]="sanitizePdf(chapitre.pdfAttachment)" download="file.pdf" class="btn btn-secondary">
+                  Download PDF
+                </a>
+              </div>
+              <div *ngIf="chapitre.youtubeVideoLink" class="mb-3">
+                <a [href]="chapitre.youtubeVideoLink">
+                  <img [src]="getYouTubeThumbnail(chapitre.youtubeVideoLink)" alt="Video Thumbnail" class="img-thumbnail" />
+                </a>
+              </div>
+            </div>
+            <div class="chapitre-image">
+              <img *ngIf="chapitre.imageData" [src]="'data:image/png;base64,' + chapitre.imageData" alt="Chapitre Image" class="img-fluid" />
+            </div>
+          </div>
+        </div>
 
-  
-  <div class="chapitres-container">
-    <div *ngFor="let chapitre of chapitres" class="chapitre-item">
-      <div class="chapitre-info">
-        <h3>{{ chapitre.titre }}</h3>
-        <p>{{ chapitre.description }}</p>
-        <p>Duration: {{ chapitre.dureeEstimee }} minutes</p>
-        <p>Order: {{ chapitre.ordreDansLeCours }}</p>
-        <div>
-        <object *ngIf="chapitre.pdfAttachment" type="application/pdf" [data]="sanitizePdf(chapitre.pdfAttachment)" class="pdf-object">
-          Your browser does not support PDFs.
-        </object>
-        <a *ngIf="chapitre.pdfAttachment" [href]="sanitizePdf(chapitre.pdfAttachment)" download="file.pdf">
-          <button class="download-btn">Download PDF</button>
-        </a>
-        <!-- Add margin-bottom here -->
-        <div class="space"></div>
-        <a *ngIf="chapitre.youtubeVideoLink" [href]="chapitre.youtubeVideoLink">
-          <img [src]="getYouTubeThumbnail(chapitre.youtubeVideoLink)" alt="Video Thumbnail" />
-        </a>
-        
-      </div>
-      </div>
-      <div class="chapitre-image">
-
-        <img *ngIf="chapitre.imageData" [src]="'data:image/png;base64,' + chapitre.imageData" alt="Chapitre Image" />
-      
-        
+        <div class="message-input">
+          <input type="text" placeholder="Type your message..." [(ngModel)]="question" class="form-control" />
+          <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="message-input">
-    <input type="text" placeholder="Type your message..." [(ngModel)]="question">
-    <button (click)="sendMessage()" class="send-button">Send</button>
-  </div>
-</div>
 </div>

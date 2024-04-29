@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-header">
+            <h5 class="card-title">Apprenant Details</h5>
+          </div>
+          <div class="card-body">
+            <div *ngIf="apprenant">
+              <p><strong></strong> {{ apprenant.fullName }}</p>
+              <p><strong></strong> {{ apprenant.userDTO.email }}</p>
+              <p><strong></strong> {{ apprenant.interests }}</p>
+              <p><strong></strong> {{ apprenant.classe }}</p>
+              <p><strong></strong> {{ apprenant.educationLevel }}</p>
+            </div>
+            <div *ngIf="!apprenant">
+              <p class="text-muted">Apprenant not found.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-5">
+        <div *ngIf="cour.length > 0">
+          <label for="courSelect">Select a Course:</label>
+          <select id="courSelect" class="form-control" [(ngModel)]="selectedCourseId" (change)="getSelectedCourseDetails()">
+            <option value="" disabled selected>Select a course</option>
+            <option *ngFor="let course of cour" [value]="course.courId">{{ course.courName }}</option>
+          </select>
+          <div *ngIf="selectedCourse">
+            <div class="mt-3">
+              <p><strong></strong> {{ selectedCourse.courName }}</p>
+              <p><strong></strong> {{ selectedCourse!.price }}</p>
+              <img [src]="selectedCourse.imageData" [src]="'data:image/png;base64,' + selectedCourse.imageData" alt="Course Image" class="img-fluid" style="max-width: 100px; height: auto;">
+            </div>
+            <div>
+                <label for="paymentAmount">Payment Amount:</label>
+                <input type="number" id="paymentAmount" [(ngModel)]="paymentAmount" placeholder="Enter payment amount">
+              </div>
+              
+              <button type="button" (click)="savePayment()" [disabled]="!paymentAmount || paymentAmount <= 0">Save Payment</button>
+              
+          </div>
+        </div>
+        <div *ngIf="cour.length === 0">
+          <p class="text-muted">No courses available.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  

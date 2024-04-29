@@ -4,10 +4,11 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { FullFormateurComponent } from './view-formateur/layouts/full/full.component';
 import { FullApprenantComponent } from './view-apprenant/layouts/full/full.component';
+import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: '',
-    component: FullComponent,
+    component:FullComponent,
     children: [
       {
         path: '',

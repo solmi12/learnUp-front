@@ -3,7 +3,9 @@
       <ng-container *ngFor="let formateur of formateurs">
         <div class="card mb-3">
           <div class="card-header">
-            <h5 class="card-title mb-0">Formateur: {{ formateur.fullName }}</h5>
+            <h5 class="card-title mb-0"> {{ formateur.fullName }}</h5>
+            <!--<button (click)="triggerVideoCall(formateur.formateurId)">Start Video Call</button>!-->
+
           </div>
           <div class="card-body">
             <div *ngFor="let response of formateurQuestionReponses[formateur.formateurId]" class="message-container">

@@ -42,6 +42,9 @@ import { HeaderApprenantComponent } from './view-apprenant/layouts/full/header/h
 import { BrandingApprenantComponent } from './view-apprenant/layouts/full/sidebar/branding.component';
 import { AppNavItemApprenantComponent } from './view-apprenant/layouts/full/sidebar/nav-item/nav-item-formateur.component';
 import { MatSelectModule } from '@angular/material/select';
+import { SocketService } from './services/socket.service';
+import { VideoCallComponent } from './video-call/video-call.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -64,8 +67,9 @@ import { MatSelectModule } from '@angular/material/select';
     AppNavItemComponent,
     AppNavItemFormateurComponent,
     AppNavItemApprenantComponent,
+    HomeComponent,
  
-  
+  VideoCallComponent,
        DashbordUserComponent,
  
   ],
@@ -97,6 +101,7 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   providers:[
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    SocketService,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   exports: [TablerIconsModule],

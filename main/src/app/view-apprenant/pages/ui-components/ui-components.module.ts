@@ -20,6 +20,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { AppChipsApprenantComponent } from './chips/chips.component';
 import { MesApprentissagesComponent } from './mes-apprentissages/mes-apprentissages.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
+import { SocketService } from 'src/app/services/socket.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,9 @@ import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
     AppTooltipsComponent,
     MesApprentissagesComponent,
     ListSouhaitComponent,
+  ],
+  providers: [
+    SocketService, 
   ],
 })
 export class UicomponentsModule {}

@@ -7,6 +7,9 @@ import { AppListsComponent } from './lists/lists.component';
 import { AppMenuComponent } from './menu/menu.component';
 import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { ProfilAdminComponent } from './profil-admin/profil-admin.component';
+import { PaymentAdminComponent } from './payment-admin/payment-admin.component';
+import { ListApprenantCourComponent } from './list-apprenant-cour/list-apprenant-cour.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -29,8 +32,20 @@ export const UiComponentsRoutes: Routes = [
         component: AppMenuComponent,
       },
       {
+        path: 'payment/:apprenantId',
+        component: PaymentAdminComponent,
+      },
+      {
         path: 'profile',
         component: ProfilAdminComponent,
+      },
+      {
+        path: 'nouveau-user',
+        component: AddUserComponent,
+      },
+      {
+        path: 'PaymentCour',
+        component: ListApprenantCourComponent,
       },
       {
         path: 'cours',

@@ -1,0 +1,28 @@
+<div class="container">
+  <h2 class="text-center mb-4">Payments</h2>
+  <div *ngFor="let paymentsGroup of paymentsByCourNameMap | keyvalue" class="card mb-3">
+    <div class="card-header bg-primary text-white">
+      <h5>{{ paymentsGroup.key }}</h5>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Apprenant</th>
+            <th>Payment Date</th>
+            <th>Total Price</th>
+            <th>Payment Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of paymentsGroup.value">
+            <td>{{ payment.fullName }}</td>
+            <td>{{ payment.paymentDate | date }}</td>
+            <td>{{ payment.totalPrice }}dt</td>
+            <td>{{ payment.paymentPrice }}dt</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

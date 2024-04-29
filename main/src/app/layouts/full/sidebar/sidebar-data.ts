@@ -29,12 +29,25 @@ export const navItems: NavItem[] = [
     route: '/ui-components/pending-cour',
   },
 
+  
+  {
+    displayName: 'Ajout User',
+  
+    iconName: 'list',
+    route: '/ui-components/nouveau-user',
+  },
+
   {
     displayName: 'cours',
     iconName: 'list',
     route: '/ui-components/cours',
   },
 
+  {
+    displayName: 'Payments',
+    iconName: 'list',
+    route: '/ui-components/PaymentCour',
+  },
 
 
 ];

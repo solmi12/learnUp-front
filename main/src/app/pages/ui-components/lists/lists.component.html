@@ -1,20 +1,12 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-content class="b-t-1">
-    <!-- Iterate over apprenants for each classe -->
-    <div *ngFor="let classeKey of Object.keys(apprenantsByClasse)">
-      <h3>{{ classeKey }} </h3>
-      <mat-table [dataSource]="apprenantsByClasse[classeKey]" matSort>
-
+    <div *ngFor="let classeKey of Object.keys(apprenantsByClasse)" class="class-container">
+      <h3>{{ classeKey }}</h3>
+      <mat-table [dataSource]="apprenantsByClasse[classeKey]" matSort class="mat-table">
         <!-- Email Column -->
         <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header style="min-width: 200px;">Email</mat-header-cell>
           <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.email }}</mat-cell>
-        </ng-container>
-
-        <!-- Role Column -->
-        <ng-container matColumnDef="role">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Role</mat-header-cell>
-          <mat-cell *matCellDef="let apprenant">{{ apprenant.userDTO.role }}</mat-cell>
         </ng-container>
 
         <!-- Full Name Column -->
@@ -35,7 +27,15 @@
           <mat-cell *matCellDef="let apprenant">{{ apprenant.interests }}</mat-cell>
         </ng-container>
 
-        <!-- Delete Column -->
+        <ng-container matColumnDef="payment">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let apprenant">
+            <button mat-icon-button color="primary" [routerLink]="['/ui-components/payment', apprenant.apprenantId]">
+              <mat-icon>payment</mat-icon> Payment
+            </button>
+          </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="delete">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let apprenant">
@@ -47,13 +47,12 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
       </mat-table>
       <mat-divider></mat-divider>
     </div>
 
     <!-- Display a message if no apprenants with classe are available -->
-    <div *ngIf="!apprenantsByClasse || Object.keys(apprenantsByClasse).length === 0">
+    <div *ngIf="!apprenantsByClasse || Object.keys(apprenantsByClasse).length === 0" class="no-apprenants-message">
       <p class="text-muted">No apprenants with classe available</p>
     </div>
   </mat-card-content>

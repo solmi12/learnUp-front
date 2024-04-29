@@ -5,10 +5,11 @@ import { Apprenant } from 'src/app/models/Apprenant';
 @Component({
   selector: 'app-lists',
   templateUrl: './lists.component.html',
+  styleUrls: ['./lists.component.scss']
 })
 export class AppListsComponent implements OnInit {
   @Input() apprenants: Apprenant[] = [];
-  displayedColumns: string[] = ['email', 'role', 'fullName', 'educationLevel', 'interests', 'delete'];
+  displayedColumns: string[] = ['email', 'fullName', 'educationLevel', 'interests', 'delete','payment'];
   classe: string = '';
   apprenantsByClasse: { [key: string]: Apprenant[] } = {}; // Object to store apprenants by classe
   Object = Object;
