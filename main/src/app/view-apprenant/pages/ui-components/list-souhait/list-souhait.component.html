@@ -3,14 +3,16 @@
         <thead>
             <tr>
                 <th>Cour Name</th>
-                <th>Price</th>
+                <th>Description</th>
                 <th>Image</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let courItem of courList" (click)="viewCourDetails(courItem.courId!)">
                 <td>{{ courItem.courName }}</td>
-                <td>{{ courItem.price }}dt</td>
+                <div class="haj-description">
+                    {{ courItem?.description!.length > 50 ? courItem?.description!.substring(0, 50) + '...' : courItem?.description }}
+                  </div>
                 <td>
                     <div class="haj-image-container">
                         <img *ngIf="courItem.imageData" [src]="'data:image/png;base64,' + courItem.imageData" alt="Course Image" class="haj-image" />

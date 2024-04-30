@@ -36,8 +36,9 @@
                 <label for="paymentAmount">Payment Amount:</label>
                 <input type="number" id="paymentAmount" [(ngModel)]="paymentAmount" placeholder="Enter payment amount">
               </div>
-              
-              <button type="button" (click)="savePayment()" [disabled]="!paymentAmount || paymentAmount <= 0">Save Payment</button>
+              <button type="button" (click)="savePayment()" [disabled]="!paymentAmount || paymentAmount <= 0" class="save-payment-button">
+                Save Payment
+              </button>
               
           </div>
         </div>

@@ -2,6 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "types": ["@angular/core"],
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

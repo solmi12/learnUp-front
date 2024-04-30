@@ -34,7 +34,7 @@ export class AppDashboardApprenantComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getCategories(); // Fetch categories first if needed
+    this.getCategories(); 
     this.getUserDetails();
   }
 
@@ -43,18 +43,19 @@ export class AppDashboardApprenantComponent {
   }
 
   searchCoursByCourName(searchValue: string): void {
-    this.searchCourName = searchValue;
-    this.courService.getToolsByCourName(this.searchCourName).subscribe(
-      (cour) => {
-        this.cour = cour;
-        console.log(`Cours filtered by cour name '${this.searchCourName}':`, this.cour);
-      },
-      (error) => {
-        console.error(`Error fetching cours for cour name '${this.searchCourName}':`, error);
-      }
+    // Filter payments based on course name
+    this.payments$ = this.paymentService.getPaymentsWithCourByApprenantId(this.apprenantId).pipe(
+      map(payments => payments.filter(payment => payment.cour?.courName.toLowerCase().includes(searchValue.toLowerCase())))
     );
   }
-
+  
+  filterCoursByCategory(categoryName: string): void {
+    // Filter payments based on category
+    this.payments$ = this.paymentService.getPaymentsWithCourByApprenantId(this.apprenantId).pipe(
+      map(payments => payments.filter(payment => payment.cour?.category?.categoryName.toLowerCase() === categoryName.toLowerCase()))
+    );
+  }
+  
   getCategories(): void {
     this.courService.getAllCours().subscribe(
       (cour) => {
@@ -69,18 +70,7 @@ export class AppDashboardApprenantComponent {
     );
   }
 
-  filterCoursByCategory(categoryName: string): void {
-    this.courService.getCoursByCategory(categoryName).subscribe(
-      (cour) => {
-        this.cour = cour;
-        console.log(`Tools filtered by category '${categoryName}':`, this.cour);
-      },
-      (error) => {
-        console.error(`Error fetching tools for category '${categoryName}':`, error);
-      }
-    );
-  }
-
+ 
   getUserDetails(): void {
     const storedId = localStorage.getItem('userId');
     console.log('Stored ID:', storedId);

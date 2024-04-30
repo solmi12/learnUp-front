@@ -15,3 +15,23 @@
     color: #6c757d;
   }
   
+  /* Button Styles */
+.save-payment-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition for background color and transform */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Adds a subtle shadow */
+}
+
+.save-payment-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.05); /* Scale effect on hover */
+}
+
+.save-payment-button:active {
+  transform: scale(0.95); /* Scale effect on click */
+}

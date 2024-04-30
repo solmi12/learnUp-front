@@ -14,7 +14,7 @@ import type { userDTO } from 'src/app/models/user';
 export class AppChipsFormateurComponent implements OnInit {
   
   user: userDTO | null = null;
-  formateurId: number = 0; // Initialize formateurId to 0
+  formateurId: number = 0; 
 cour = {
   courId: null,
   courName: '',
@@ -51,15 +51,11 @@ cour = {
   getUserDetails(userId: number): void {
     this.userService.getUserById(userId).pipe(
       switchMap((data: any) => {
-        // Log the entire response object to the console for debugging
         console.log('Response Object:', data);
 
-        // Extract the Formateur ID from the response directly
-        this.formateurId = data.formateurId; // Assign formateurId from response
-        console.log('Formateur ID:', this.formateurId); // Log formateurId
-
-        // Now you can use the formateurId as needed
-        return of(data); // Return the data for further processing if needed
+        this.formateurId = data.formateurId;
+        console.log('Formateur ID:', this.formateurId); 
+        return of(data); 
       })
     ).subscribe();
   }
@@ -69,12 +65,9 @@ cour = {
   
     const formData = this.cour;
   
-    // Check if imageData is defined before calling replace
     if (formData.imageData) {
       formData.imageData = formData.imageData.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
     }
-  
-    // Use this.formateurId directly in your form data
     formData.formateurId = this.formateurId;
   
     this.courService.addCour(formData).subscribe(

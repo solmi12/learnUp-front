@@ -1,10 +1,7 @@
 <div *ngIf="cour">
     <h2>{{ cour.courName }}</h2>
     <p>{{ cour.description }}</p>
-    <!-- Display other Cour details as needed -->
-  
-    <!-- Button to add Chapitre -->
-    <button (click)="showAddChapitreForm()">Add Chapitre</button>
+    <button (click)="showAddChapitreForm()" class="add-chapitre-button">Add Chapitre</button>
   
     <div *ngIf="showAddChapitreFormFlag" class="add-chapitre-form">
         <h3>Add Chapitre</h3>
@@ -38,10 +35,13 @@
             <label for="youtubeVideoLink">Youtube Video Link:</label>
             <input type="text" id="youtubeVideoLink" name="youtubeVideoLink" [(ngModel)]="chapitre.youtubeVideoLink" />
           </div>
-          <!-- Add more form fields as needed -->
+   
           <div class="form-actions">
-            <button type="submit">Add Chapitre</button>
+            <button type="submit" class="add-chapitre-button-secondary">
+              Add Chapitre
+            </button>
           </div>
+          
         </form>
       </div>
       
