@@ -11,6 +11,7 @@ import { ListFormateurCoursComponent } from './list-formateur-cours/list-formate
 import { CourDetailsComponent } from './cour-details/cour-details.component';
 import { ListQuestionsComponent } from './list-questions/list-questions.component';
 import { ListeApprenantByCourComponent } from './liste-apprenant-by-cour/liste-apprenant-by-cour.component';
+import { AddQuizComponent } from './add-quiz/add-quiz.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -41,6 +42,10 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'ajout-cour',
         component: AppChipsFormateurComponent,
+      },
+      {
+        path: 'add-quiz/:id',
+        component: AddQuizComponent,
       },
       {
         path: 'mes-cours',

@@ -1,0 +1,80 @@
+<div *ngIf="displayForm">
+<form [formGroup]="quizForm" (ngSubmit)="saveQuiz()" class="quiz-form">
+  
+    <!-- Question 1 -->
+    <div class="question-container">
+      <label for="question1">Question 1:</label>
+      <input type="text" id="question1" formControlName="question1" required>
+      <label for="correctResponse1">Correct Response 1:</label>
+      <input type="text" id="correctResponse1" formControlName="correctResponse1" required>
+      <label for="falseResponse1_1">False Response 1-1:</label>
+      <input type="text" id="falseResponse1_1" formControlName="falseResponse1_1" required>
+      <label for="falseResponse1_2">False Response 1-2:</label>
+      <input type="text" id="falseResponse1_2" formControlName="falseResponse1_2" required>
+      <label for="falseResponse1_3">False Response 1-3:</label>
+      <input type="text" id="falseResponse1_3" formControlName="falseResponse1_3" required>
+    </div>
+  
+    <!-- Question 2 -->
+    <div class="question-container">
+      <label for="question2">Question 2:</label>
+      <input type="text" id="question2" formControlName="question2" required>
+      <label for="correctResponse2">Correct Response 2:</label>
+      <input type="text" id="correctResponse2" formControlName="correctResponse2" required>
+      <label for="falseResponse2_1">False Response 2-1:</label>
+      <input type="text" id="falseResponse2_1" formControlName="falseResponse2_1" required>
+      <label for="falseResponse2_2">False Response 2-2:</label>
+      <input type="text" id="falseResponse2_2" formControlName="falseResponse2_2" required>
+      <label for="falseResponse2_3">False Response 2-3:</label>
+      <input type="text" id="falseResponse2_3" formControlName="falseResponse2_3" required>
+    </div>
+  
+    <!-- Question 3 -->
+    <div class="question-container">
+      <label for="question3">Question 3:</label>
+      <input type="text" id="question3" formControlName="question3" required>
+      <label for="correctResponse3">Correct Response 3:</label>
+      <input type="text" id="correctResponse3" formControlName="correctResponse3" required>
+      <label for="falseResponse3_1">False Response 3-1:</label>
+      <input type="text" id="falseResponse3_1" formControlName="falseResponse3_1" required>
+      <label for="falseResponse3_2">False Response 3-2:</label>
+      <input type="text" id="falseResponse3_2" formControlName="falseResponse3_2" required>
+      <label for="falseResponse3_3">False Response 3-3:</label>
+      <input type="text" id="falseResponse3_3" formControlName="falseResponse3_3" required>
+    </div>
+  
+    <!-- Question 4 -->
+    <div class="question-container">
+      <label for="question4">Question 4:</label>
+      <input type="text" id="question4" formControlName="question4" required>
+      <label for="correctResponse4">Correct Response 4:</label>
+      <input type="text" id="correctResponse4" formControlName="correctResponse4" required>
+      <label for="falseResponse4_1">False Response 4-1:</label>
+      <input type="text" id="falseResponse4_1" formControlName="falseResponse4_1" required>
+      <label for="falseResponse4_2">False Response 4-2:</label>
+      <input type="text" id="falseResponse4_2" formControlName="falseResponse4_2" required>
+      <label for="falseResponse4_3">False Response 4-3:</label>
+      <input type="text" id="falseResponse4_3" formControlName="falseResponse4_3" required>
+    </div>
+  
+    <!-- Question 5 -->
+    <div class="question-container">
+      <label for="question5">Question 5:</label>
+      <input type="text" id="question5" formControlName="question5" required>
+      <label for="correctResponse5">Correct Response 5:</label>
+      <input type="text" id="correctResponse5" formControlName="correctResponse5" required>
+      <label for="falseResponse5_1">False Response 5-1:</label>
+      <input type="text" id="falseResponse5_1" formControlName="falseResponse5_1" required>
+      <label for="falseResponse5_2">False Response 5-2:</label>
+      <input type="text" id="falseResponse5_2" formControlName="falseResponse5_2" required>
+      <label for="falseResponse5_3">False Response 5-3:</label>
+      <input type="text" id="falseResponse5_3" formControlName="falseResponse5_3" required>
+    </div>
+  
+    <button type="submit" class="submit-btn">Save Quiz</button>
+  </form>
+</div>
+
+<div *ngIf="!displayForm">
+    <p>This course already has quizzes.</p>
+  </div>

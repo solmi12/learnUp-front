@@ -68,51 +68,23 @@ export class CourDetailsComponent implements OnInit {
       }
     });
     this.getChapitres(this.courId);
-    this.initializeForm();
-    this.getQuizzesByCourId();
+
   }
 
-  getQuizzesByCourId(): void {
-    this.quizService.getQuizByCourId(this.courId).subscribe(
-      (data: QuizDto) => {
-        this.quizzes.push(data); // Assuming you're expecting a single quiz object here
-        console.log('Quizzes:', this.quizzes);
-      },
-      (error) => {
-        console.error('Error fetching quizzes:', error);
-        // Handle error
-      }
-    );
-  }
+ 
   showQuizForm(): void {
     this.showQuizFormFlag = true;
   }
+    
+
+
+
+
+
+
+
+
   
-  initializeForm(): void {
-    this.quizForm = this.formBuilder.group({
-      courId: [this.courId], // Use square brackets for setting initial values
-      questions: this.formBuilder.array([]),
-      correctResponses: this.formBuilder.array([]),
-      falseResponses: this.formBuilder.array([])
-    });
-  }
-  
-  saveQuiz(): void {
-    if (this.quizForm.valid) {
-      const quizDto = {
-        courId: this.quizForm.value.courId,
-        questions: this.quizForm.value.questions,
-        correctResponses: this.quizForm.value.correctResponses,
-        falseResponses: this.quizForm.value.falseResponses,
-        userResponses: [],
-        isCorrect: []
-      };
-      console.log('Quiz DTO:', quizDto);
-      // Call your service to save the quiz here
-    } else {
-      console.log('Form is invalid');
-    }
-  }
   
   
   sanitizePdf(pdfData: string): SafeResourceUrl {

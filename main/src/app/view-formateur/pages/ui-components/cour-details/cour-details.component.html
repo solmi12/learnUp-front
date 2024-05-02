@@ -1,7 +1,7 @@
 <div *ngIf="cour">
     <h2>{{ cour.courName }}</h2>
     <p>{{ cour.description }}</p>
-    <!-- <button (click)="showAddChapitreForm()" class="add-chapitre-button">Add Chapitre</button>
+   <button (click)="showAddChapitreForm()" class="add-chapitre-button">Add Chapitre</button>
   
     <div *ngIf="showAddChapitreFormFlag" class="add-chapitre-form">
         <h3>Add Chapitre</h3>
@@ -43,13 +43,13 @@
           </div>
           
         </form>
-      </div>-->
+      </div>
       
   
     <div *ngIf="chapitre">
       <h3>Chapitre Details:</h3>
       <p>{{ chapitre.titre }} - {{ chapitre.description }}</p>
-      <!-- Display other Chapitre details as needed -->
+
     </div>
   
     <div *ngIf="chapitres && chapitres.length > 0">
@@ -85,33 +85,16 @@
         </tbody>
       </table>
     </div>
-  
-    <button (click)="showQuizForm()">Add Quiz</button>
-    <div *ngIf="showQuizFormFlag" class="add-quiz-form">
-      <h3>Add Quiz</h3>
-      <form [formGroup]="quizForm" (submit)="saveQuiz()">
-        <div class="form-group" *ngFor="let question of quizData.questions; let i=index" [formGroupName]="i">
-          <label [for]="'question' + (i + 1)">Question {{ i + 1 }}:</label>
-          <input type="text" formControlName="question" [id]="'question' + (i + 1)" required />
-          
-          <label [for]="'correctResponseQuestion' + (i + 1)">Correct Response:</label>
-          <input type="text" formControlName="correctResponse" [id]="'correctResponseQuestion' + (i + 1)" required />
-          
-          <label [for]="'falseResponse1Question' + (i + 1)">False Response 1:</label>
-          <input type="text" formControlName="falseResponse1" [id]="'falseResponse1Question' + (i + 1)" required />
-          
-          <label [for]="'falseResponse2Question' + (i + 1)">False Response 2:</label>
-          <input type="text" formControlName="falseResponse2" [id]="'falseResponse2Question' + (i + 1)" required />
-          
-          <label [for]="'falseResponse3Question' + (i + 1)">False Response 3:</label>
-          <input type="text" formControlName="falseResponse3" [id]="'falseResponse3Question' + (i + 1)" required />
-        </div>
-        
-        <div class="form-actions">
-          <button type="submit">Save Quiz</button>
-        </div>
-      </form>
-    </div>
+
+
+
+    
+    
+    
+    
+    
+    
+    
     
     
     

@@ -8,6 +8,7 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppChipsApprenantComponent } from './chips/chips.component';
 import { MesApprentissagesComponent } from './mes-apprentissages/mes-apprentissages.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
+import { TestComponent } from './test/test.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -37,6 +38,10 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'mes-courses',
         component: MesApprentissagesComponent,
+      },
+      {
+        path: 'test/:id',
+        component:TestComponent,
       },
       {
         path: 'cour/:id',

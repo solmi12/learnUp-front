@@ -1,0 +1,25 @@
+<div *ngIf="quiz" class="quiz-container">
+    <h2>Quiz Questions</h2>
+    <ol>
+      <li *ngFor="let question of quiz.questions; let i = index" class="question-item">
+        {{ question }}
+        <ul class="responses-list">
+          <ng-container *ngIf="quiz.correctResponses[i].length > 0">
+            <label class="response-label">
+              <input type="radio" name="response{{ i }}" [value]="quiz.correctResponses[i][0]" (change)="setUserResponse(i, quiz.correctResponses[i][0])">
+              {{ quiz.correctResponses[i][0] }}
+            </label>
+          </ng-container>
+          <!-- Display false responses -->
+          <li *ngFor="let response of quiz.falseResponses[i]; let j = index" class="false-response">
+            <label class="response-label">
+              <input type="radio" name="response{{ i }}" [value]="response" (change)="setUserResponse(i, response)">
+              {{ response }}
+            </label>
+          </li>
+        </ul>
+      </li>
+    </ol>
+    <button class="submit-button" (click)="checkUserResponse()">Submit Quiz</button>
+  </div>
+  

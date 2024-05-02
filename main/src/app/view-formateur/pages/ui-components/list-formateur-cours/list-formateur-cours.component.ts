@@ -19,7 +19,7 @@ export class ListFormateurCoursComponent implements OnInit {
   user: userDTO | null = null;
   formateurId: number = 0;
   loading: boolean = true; // Define 'loading' property
-
+  courId: number = 0;
   constructor(
     @Inject(CourService) private courService: CourService,
     @Inject(UserService) private userService: UserService,
@@ -97,7 +97,11 @@ export class ListFormateurCoursComponent implements OnInit {
   }
   
   viewCourDetails(courId: number): void {
-    // Navigate to another component and pass courId as a parameter
     this.router.navigate(['/ui-components/cour-details', courId]);
+  }
+
+  addQuiz(courId: number): void {
+
+    this.router.navigate(['/ui-components/add-quiz', courId]);
   }
 }

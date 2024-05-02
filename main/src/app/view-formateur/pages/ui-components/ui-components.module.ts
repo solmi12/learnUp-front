@@ -24,6 +24,7 @@ import { ListFormateurCoursComponent } from './list-formateur-cours/list-formate
 import { CourDetailsComponent } from './cour-details/cour-details.component';
 import { ListQuestionsComponent } from './list-questions/list-questions.component';
 import { ListeApprenantByCourComponent } from './liste-apprenant-by-cour/liste-apprenant-by-cour.component';
+import { AddQuizComponent } from './add-quiz/add-quiz.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { ListeApprenantByCourComponent } from './liste-apprenant-by-cour/liste-a
     CourDetailsComponent,
     ListQuestionsComponent,
     ListeApprenantByCourComponent,
+    AddQuizComponent,
   ],
 })
 export class UicomponentsModule {}

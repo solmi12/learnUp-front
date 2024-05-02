@@ -1,14 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { catchError, switchMap, throwError } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
-import { Formateur } from 'src/app/models/formateur';
-import { userDTO } from 'src/app/models/user';
-import { QuestionResponseService } from 'src/app/services/question-response.service';
-import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
+import { catchError, switchMap, throwError, Observable } from 'rxjs';
+import type { Apprenant } from 'src/app/models/Apprenant';
 import { QuestionReponse } from 'src/app/models/QuestionReponse';
-import { Apprenant } from 'src/app/models/Apprenant'; // Import Apprenant model
-import { StudentService } from 'src/app/services/student.service'; // Import StudentService
+import { Formateur } from 'src/app/models/formateur';
+import { FormateurService } from 'src/app/services/formateur.service';
+import { QuestionResponseService } from 'src/app/services/question-response.service';
+import { StudentService } from 'src/app/services/student.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-list-questions',
@@ -16,17 +14,25 @@ import { StudentService } from 'src/app/services/student.service'; // Import Stu
   styleUrls: ['./list-questions.component.scss']
 })
 export class ListQuestionsComponent implements OnInit {
-  user: userDTO | null = null;
   formateurId: number = 0;
+  apprenantIds: number[] = [];
   loading: boolean = true;
-  formateur: Formateur | null = null;
+  response: QuestionReponse;
   questionResponses$: Observable<QuestionReponse[]>;
-  apprenant$: Observable<Apprenant>; // Observable for Apprenant
-  newResponse: string = '';
+  formateurs: Formateur[] = [];
+  apprenants: Apprenant[] = [];
+  formateurQuestionReponses: { [formateurId: number]: QuestionReponse[] } = {};
+  updatedResponse: string = '';
+  apprenantQuestionReponses: { [apprenantId: number]: QuestionReponse[] } = {};
+  newQuestions: { [key: number]: string } = {};
+
   constructor(
-    @Inject(UserService) private userService: UserService,
+    @Inject(FormateurService) private formateurService: FormateurService,
+    
+    @Inject(StudentService) private apprenantService: StudentService,
     @Inject(QuestionResponseService) private questionReponseService: QuestionResponseService,
-    @Inject(StudentService) private studentService: StudentService 
+    
+    @Inject(UserService) private userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +43,6 @@ export class ListQuestionsComponent implements OnInit {
     } else {
       console.error('Invalid user ID stored in localStorage');
     }
-    
   }
 
   getUserDetails(userId: number): void {
@@ -46,33 +51,60 @@ export class ListQuestionsComponent implements OnInit {
         this.formateurId = data.formateurId;
         this.loading = false;
         this.questionResponses$ = this.questionReponseService.getReponseByFormateurId(this.formateurId);
-    
-        this.apprenant$ = this.studentService.getStudentById(data.apprenantId);
-        console.log('apprenanr',this.apprenant$)
         return this.questionResponses$;
       }),
-      catchError(error => {
-        console.error('Error fetching admin:', error);
+      catchError((error) => {
+        console.error('Error fetching apprenant:', error);
         this.loading = false;
-        return throwError('Error fetching admin');
+        return throwError('Error fetching apprenant');
       })
     ).subscribe(
       (questionResponses: QuestionReponse[]) => {
-        console.log(questionResponses);
+        this.groupQuestionReponsesByApprenant(questionResponses);
+        const apprenantId = this.apprenantIds.length > 0 ? this.apprenantIds[0] : 0;
+      
       }
     );
   }
-  updateResponse(response: QuestionReponse, newResponse: string): void {
-    const updatedResponse: QuestionReponse = { ...response, reponse: newResponse };
-    this.questionReponseService.updateQuestionReponse(response.qaId, updatedResponse).subscribe(
-      updatedResponse => {
-        console.log('Updated response:', updatedResponse);
-      },
-      error => {
-        console.error('Error updating response:', error);
+
+  groupQuestionReponsesByApprenant(questionResponses: QuestionReponse[]): number[] {
+    const addedApprenantIds: number[] = [];
+    for (const response of questionResponses) {
+      if (!this.apprenantIds.includes(response.apprenantId)) {
+        this.apprenantIds.push(response.apprenantId);
+        addedApprenantIds.push(response.apprenantId);
+        this.apprenantService.getStudentById(response.apprenantId).subscribe(
+          (apprenant: Apprenant) => {
+            this.apprenants.push(apprenant);
+          }
+        );
       }
-    );
+      if (!this.apprenantQuestionReponses[response.apprenantId]) {
+        this.apprenantQuestionReponses[response.apprenantId] = [];
+      }
+      this.apprenantQuestionReponses[response.apprenantId].push(response);
+    }
+    return addedApprenantIds;
   }
-  
+
+  getFormateurFullName(formateurId: number): string {
+    const formateur = this.formateurs.find(formateur => formateur.formateurId === formateurId);
+    return formateur ? formateur.fullName : 'Unknown Formateur';
+  }
+
+  updateQuestionResponse(updatedResponse: string): void {
+    this.questionResponses$.subscribe((responses: QuestionReponse[]) => {
+      const lastResponse = responses[responses.length - 1]; // Get the last response from the array
+      const updatedQuestionResponse: QuestionReponse = { ...lastResponse, reponse: updatedResponse };
+      this.questionReponseService.updateQuestionReponse(lastResponse.qaId, updatedQuestionResponse).subscribe(
+        (result: QuestionReponse) => {
+          console.log('Question response updated:', result);
+        },
+        (error) => {
+          console.error('Error updating question response:', error);
+        }
+      );
+    });
+  }
   
 }

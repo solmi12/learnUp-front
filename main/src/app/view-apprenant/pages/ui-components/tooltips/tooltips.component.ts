@@ -1,7 +1,7 @@
   import { Component, Inject, type OnInit } from '@angular/core';
   import { FormControl } from '@angular/forms';
   import { DomSanitizer, type SafeResourceUrl } from '@angular/platform-browser';
-  import { ActivatedRoute } from '@angular/router';
+  import { ActivatedRoute, Router } from '@angular/router';
   import { of, switchMap, type Observable, map, catchError, Subject, takeUntil, tap, forkJoin } from 'rxjs';
 import type { ApprenantCourDto } from 'src/app/models/ApprenantCour';
 
@@ -57,7 +57,8 @@ import type { ApprenantCourDto } from 'src/app/models/ApprenantCour';
       @Inject(QuestionResponseService) private questionReponseService:QuestionResponseService,
       @Inject(ApprenantCourService) private apprenantCourService:ApprenantCourService,
     @Inject(DomSanitizer) private sanitizer: DomSanitizer,
-    @Inject(SouhaitsService)private souhaitsService:SouhaitsService
+    @Inject(SouhaitsService)private souhaitsService:SouhaitsService,
+    @Inject(Router) private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -293,4 +294,10 @@ import type { ApprenantCourDto } from 'src/app/models/ApprenantCour';
       this.showAddChapitreFormFlag = true;
     }
 
+    terminer(): void {
+      if (this.courId) {
+        this.router.navigate(['/ui-components/test', this.courId]);
+      }
+
+  }
   }

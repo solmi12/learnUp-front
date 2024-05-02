@@ -21,6 +21,8 @@ import { AppChipsApprenantComponent } from './chips/chips.component';
 import { MesApprentissagesComponent } from './mes-apprentissages/mes-apprentissages.component';
 import { ListSouhaitComponent } from './list-souhait/list-souhait.component';
 import { SocketService } from 'src/app/services/socket.service';
+import { TestComponent } from './test/test.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -41,6 +43,8 @@ import { SocketService } from 'src/app/services/socket.service';
     AppTooltipsComponent,
     MesApprentissagesComponent,
     ListSouhaitComponent,
+    TestComponent,
+    DialogComponent,
   ],
   providers: [
     SocketService, 

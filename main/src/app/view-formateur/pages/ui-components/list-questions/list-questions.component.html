@@ -1,34 +1,37 @@
-<div *ngIf="questionResponses$ | async as questionResponses; else loadingTemplate">
-    <h2>Questions</h2>
-    <table class="question-table">
-        <thead>
-            <tr>
-                <th>Message</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <ng-container *ngFor="let response of questionResponses">
-                <tr>
-                    <td>{{ response.question }}</td>
-                    <td>{{ response.addedDate | date }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="input-container">
-                            <input type="text" placeholder="Enter your new response" class="large-input" [(ngModel)]="newResponse">
-                            <button (click)="updateResponse(response, newResponse)">Send</button>
+<div class="container">
+    <div *ngIf="!loading">
+      <ng-container *ngFor="let apprenant of apprenants">
+        <div class="card mb-3">
+          <div class="card-header">
+            <h5 class="card-title mb-0"> {{ apprenant.fullName }}</h5>
+            <!--<button (click)="triggerVideoCall(formateur.formateurId)">Start Video Call</button>!-->
 
-                          </div>
-                          
-                    </td>
-                    
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
-</div>
-
-<ng-template #loadingTemplate>
-    <p>Loading...</p>
-</ng-template>
+          </div>
+          <div class="card-body">
+            <div *ngFor="let response of apprenantQuestionReponses[apprenant.apprenantId]" class="message-container">
+              <div class="message">
+                <p class="question">{{ response.question }}</p>
+                <p class="date">{{ response.addedDate | date }}</p>
+                <p class="message-body">{{ response.reponse }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type a message..." [(ngModel)]="updatedResponse">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="updateQuestionResponse( updatedResponse)">Send</button>
+                </div>
+            </div>
+        </div>
+        
+          
+        </div>
+      </ng-container>
+    </div>
+  
+    <ng-template #loadingTemplate>
+      <p>Loading...</p>
+    </ng-template>
+  </div>
+  

@@ -6,6 +6,27 @@
     text-align: center;
     text-transform: uppercase;
   }
+  .add-quiz-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50; /* Green color for adding */
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .add-quiz-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .add-quiz-button .icon {
+    margin-right: 5px;
+  }
+  
 
   .cour-list {
     list-style-type: none;
